@@ -1,12 +1,18 @@
+#define PERSON_H
+
 #ifndef __gl_h_
     #include <OpenGL/GL.h>
 #endif
 
-#include "Point.h"
-#include "Parallelepiped.h"
+#ifndef POINT_H
+    #include "Point.h"
+#endif
 
-class Person
-{
+#ifndef PARALLELEPIPED_H
+    #include "Parallelepiped.h"
+#endif
+
+class Person {
 private:
     Point * position;
 

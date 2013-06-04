@@ -1,7 +1,6 @@
 #include "Person.h"
 
 Person::Person() {
-    // Point * p(0, 0, 0);
     Person::position = new Point(0, 0, 0);
     Person::setDirectionAngle(0);
 }
@@ -15,8 +14,7 @@ float Person::getDirectionAngle() {
     return directionAngle;
 }
 
-void Person::setDirectionAngle(float angle)
-{
+void Person::setDirectionAngle(float angle) {
     if (angle < 0) {
         angle = 360 - angle;
     } else if (angle > 360) {
@@ -79,8 +77,7 @@ void Person::renderLeg() {
     glPopMatrix();
 }
 
-void Person::renderBody()
-{
+void Person::renderBody() {
     // Hips
     glColor3f(0, 0, 1);
     Parallelepiped::draw(0.6, 0.3, 0.1);
@@ -102,8 +99,7 @@ void Person::renderBody()
     glPopMatrix();
 }
 
-void Person::renderArm(const int leftOrRight)
-{
+void Person::renderArm(const int leftOrRight) {
     float x = (leftOrRight == 0) ? 0.1 : -0.03;
 
     glColor3f(1, 0.72, 0.51);
