@@ -84,10 +84,10 @@ void Person::render()
         renderBody();
 
         glTranslatef(-0.13, 0.2, 0);
-        renderArm(0);
+        renderArm(Person::LEFT);
 
         glTranslatef(0.76, 0, 0);
-        renderArm(1);
+        renderArm(Person::RIGHT);
     glPopMatrix();
 }
 
@@ -134,7 +134,7 @@ void Person::renderBody()
 
 void Person::renderArm(const int leftOrRight)
 {
-    float x = (leftOrRight == 0) ? 0.1 : -0.03;
+    float x = (leftOrRight == Person::LEFT) ? 0.1 : -0.03;
 
     glColor3f(1, 0.72, 0.51);
     Parallelepiped::draw(0.1, 0.8, 0.1);
