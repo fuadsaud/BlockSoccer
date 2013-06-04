@@ -3,12 +3,12 @@
 #include <GLUT/GLUT.h>
 #include "Person.h"
 #include "Camera.h"
+#include "Scene.h"
 
 void init();
 void display();
 
-Person p(new Point(8, 0, 2));
-Camera c(&p);
+Scene scene;
 
 int main(int argc, char *argv[])
 {
@@ -32,8 +32,6 @@ void init()
     glClearDepth(1.0);
 
     glViewport(0, 0, 800, 600);
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
 
     scene.init();
 
@@ -53,7 +51,7 @@ void display()
         glVertex3f( 10, 0, -10);
     glEnd();
 
-    p.render();
+    scene.display();
 
     glFlush();
 }

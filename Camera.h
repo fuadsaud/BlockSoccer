@@ -22,5 +22,5 @@ public:
 
     Camera(Person * p);
 
-    void look();
+    void syncWithPerson();
 };
