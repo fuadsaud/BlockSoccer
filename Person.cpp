@@ -1,6 +1,7 @@
 #include "Person.h"
 
 #include <math.h>
+#include <stdio.h>
 
 Person::Person()
 {
@@ -35,6 +36,16 @@ void Person::setDirectionAngle(float angle)
 Point * Person::getPosition()
 {
     return position;
+}
+
+void Person::lookAt(float x, float z) {
+    float productOfModules = sqrt(pow(x,2)+pow(z,2)) * sqrt(pow(position->x,2)+pow(position->z,2));
+    float product = x*position->x + z*position->z;
+    if (productOfModules > 0) {
+        float angle = acos(product/productOfModules);
+        directionAngle = angle;
+        printf("%f %f %f\n",productOfModules,product, angle);
+    }
 }
 
 void Person::move(const int direction, int distance) {

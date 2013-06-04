@@ -14,6 +14,7 @@
 
 void init();
 void display();
+void timer(int n);
 void keyboard(unsigned char key, int x, int y);
 
 
@@ -29,11 +30,18 @@ int main(int argc, char *argv[])
 
     init();
 
+    timer(300);
+
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
     glutMainLoop();
 
     return 0;
+}
+void timer(int n) {
+    scene.moveOpponents();
+    glutPostRedisplay();
+    glutTimerFunc(n, timer, n);
 }
 
 void init()
@@ -51,16 +59,6 @@ void init()
 
 void display()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glColor3f(1, 0, 1);
-    glBegin(GL_QUADS);
-        glVertex3f(-10, 0, -10);
-        glVertex3f(-10, 0,  10);
-        glVertex3f( 10, 0,  10);
-        glVertex3f( 10, 0, -10);
-    glEnd();
-
     scene.display();
 
     glutSwapBuffers();
