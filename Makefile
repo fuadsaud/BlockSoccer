@@ -1,4 +1,6 @@
 run: compile
-	./soccer
+	./BlockSoccer
 compile:
-	g++ -Wall -framework OpenGL -framework GLUT -o soccer *.cpp
+	g++ -Wall -framework OpenGL -framework GLUT -o BlockSoccer *.cpp
+clean:
+	rm BlockSoccer
