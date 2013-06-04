@@ -1,5 +1,7 @@
 #include "Person.h"
 
+#include <math.h>
+
 Person::Person()
 {
     Person::position = new Point(0, 0, 0);
@@ -35,14 +37,35 @@ Point * Person::getPosition()
     return position;
 }
 
-// Person::move(Point);
+void Person::move(const int direction, int distance) {
+    Point p(0,0,0);
+    float radAngle = getDirectionAngle() * M_PI / 180;
+    switch (direction) {
+        case Person::FRONT:
+            p.x = cos(radAngle) * distance;
+            p.z = sin(radAngle) * distance;
+            break;
+        case Person::BACK:
+            p.x -= cos(radAngle) * distance;
+            p.z -= sin(radAngle) * distance;
+            break;
+        case Person::LEFT:
+            directionAngle -= distance;
+            break;
+        case Person::RIGHT:
+            directionAngle += distance;
+            break;
+
+    }
+    position = p+ position;
+}
 // Person::rotate();
 
 void Person::render()
 {
     glPushMatrix();
-        glTranslatef(position->x - 0.25, position->y, position->z);
-        glRotatef(directionAngle, 0, 1, 0);
+        glTranslatef(position->x + 0.25, position->y, position->z);
+        glRotatef(90-directionAngle, 0, 1, 0);
 
         renderFoot();
 

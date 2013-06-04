@@ -13,6 +13,7 @@ public:
 
     void init();
     void display();
+    void keyboardAction(const char key, int x, int y);
 
 private:
     Person * player;

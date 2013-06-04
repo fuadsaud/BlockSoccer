@@ -13,13 +13,15 @@
 
 void init();
 void display();
+void keyboard(unsigned char key, int x, int y);
+
 
 Scene scene;
 
 int main(int argc, char *argv[])
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(0, 0);
     glutCreateWindow("BlockSoccer");
@@ -40,6 +42,7 @@ void init()
     glViewport(0, 0, 800, 600);
 
     scene.init();
+    glutKeyboardFunc(keyboard);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -58,6 +61,12 @@ void display()
     glEnd();
 
     scene.display();
+    glutSwapBuffers();
 
     glFlush();
+}
+
+void keyboard(unsigned char key, int x, int y) {
+    scene.keyboardAction(key,x,y);
+    glutPostRedisplay();
 }

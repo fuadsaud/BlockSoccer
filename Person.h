@@ -32,7 +32,13 @@ private:
     void renderBody();
     void renderArm(const int leftOrRight);
 
+
 public:
+    const static int FRONT = 1;
+    const static int BACK  = 2;
+    const static int LEFT  = 3;
+    const static int RIGHT = 4;
+
     Person();
     Person(Point * initialPosition);
 
@@ -40,7 +46,7 @@ public:
     Point * getPosition();
 
     // void rotate(float angle);
-    // void move(const int direction, int distance);
+    void move(const int direction, int distance);
 
     void render();
 };
