@@ -1,6 +1,12 @@
-#include <OpenGL/GL.h>
-#include <OpenGL/GLU.h>
-#include <GLUT/GLUT.h>
+#ifdef __linux
+    #include <GL/gl.h>
+    #include <GL/glut.h>
+    #include <GL/glut.h>
+#elif __APPLE__
+    #include <OpenGL/GL.h>
+    #include <OpenGL/GLU.h>
+    #include <GLUT/GLUT.h>
+#endif
 #include "Person.h"
 #include "Camera.h"
 #include "Scene.h"
