@@ -1,3 +1,4 @@
+#define CAMERA_H
 #define PI 3.141592
 
 #ifndef __gl_h_
@@ -14,7 +15,8 @@
 
 #include <math.h>
 
-class Camera {
+class Camera
+{
 public:
     Person * person;
 

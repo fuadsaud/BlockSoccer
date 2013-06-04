@@ -1,6 +1,7 @@
 #define POINT_H
 
-class Point {
+class Point
+{
 
 public:
     float x;

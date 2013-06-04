@@ -12,7 +12,8 @@
     #include "Parallelepiped.h"
 #endif
 
-class Person {
+class Person
+{
 private:
     Point * position;
 

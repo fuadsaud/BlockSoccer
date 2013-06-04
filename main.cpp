@@ -10,7 +10,8 @@ void display();
 Person p(new Point(8, 0, 2));
 Camera c(&p);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
@@ -25,7 +26,8 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-void init() {
+void init()
+{
     glClearColor(0, 0, 0, 0);
     glClearDepth(1.0);
 
@@ -33,13 +35,14 @@ void init() {
     // glMatrixMode(GL_PROJECTION);
     // glLoadIdentity();
 
-    c.look();
+    scene.init();
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
 
-void display() {
+void display()
+{
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glColor3f(1, 0, 1);

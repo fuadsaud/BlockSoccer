@@ -1,7 +1,8 @@
 #include "Camera.h"
 #include <iostream>
 
-Camera::Camera(Person * p) {
+Camera::Camera(Person * p)
+{
     person = p;
 }
 
