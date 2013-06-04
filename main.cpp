@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
     init();
 
     glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
     glutMainLoop();
 
     return 0;
@@ -42,7 +43,6 @@ void init()
     glViewport(0, 0, 800, 600);
 
     scene.init();
-    glutKeyboardFunc(keyboard);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -61,8 +61,8 @@ void display()
     glEnd();
 
     scene.display();
-    glutSwapBuffers();
 
+    glutSwapBuffers();
     glFlush();
 }
 

@@ -25,20 +25,21 @@ void Scene::keyboardAction(const char key, int x, int y) {
     switch (key) {
         case 'w':
         case 'W':
-            player->move(Person::FRONT,1);
+            player->move(Person::FRONT, 1);
             break;
         case 's':
         case 'S':
-            player->move(Person::BACK,1);
+            player->move(Person::BACK, 1);
             break;
         case 'a':
         case 'A':
-            player->move(Person::LEFT,1);
+            player->move(Person::LEFT, 1);
             break;
         case 'd':
         case 'D':
-            player->move(Person::RIGHT,1);
+            player->move(Person::RIGHT, 1);
             break;
     }
+
     camera->syncWithPerson();
 }

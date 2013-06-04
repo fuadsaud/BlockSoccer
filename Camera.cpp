@@ -1,41 +1,37 @@
-    #include "Camera.h"
-    #include <iostream>
+#include "Camera.h"
+#include <iostream>
 
-    Camera::Camera(Person * p)
-    {
-        person = p;
-    }
+Camera::Camera(Person * p)
+{
+    person = p;
+}
 
-    void Camera::syncWithPerson()
-    {
-        Point * p = person->getPosition();
-        float angle = person->getDirectionAngle();
+void Camera::syncWithPerson()
+{
+    Point * p = person->getPosition();
+    float angle = person->getDirectionAngle();
 
-        float radAngle = M_PI * angle / 180;
+    float radAngle = M_PI * angle / 180;
 
-        // float ex = p->x - cos(radAngle);
-        // float ey = p->y + 1;
-        // float ez = p->z - sin(radAngle);
+    // Camera is always centered on the player.
+    float eyeX = p->x - cos(radAngle) * 3;
+    // Makes the camera appear higher.
+    float eyeY = p->y + 3;
+    // Sets the eye on the back of the player (the lesser, the farther).
+    float eyeZ = p->z - sin(radAngle) * 3;
 
-        // Camera is always centered on the player.
-        float ex = p->x - cos(radAngle)*3;
-        // Makes the camera appear higher.
-        float ey = p->y + 3;
-        // Sets the eye on the back of the player (the lesser, the farther).
-        float ez = p->z - sin(radAngle)*3;
+    float directionX = p->x;
+    float directionY = p->y + 2;
+    float directionZ = p->z;
 
-        float dx = p->x;
-        float dy = p->y + 2;
-        float dz = p->z;
-
-//    std::cerr << "Point(" << ex << ", " << ey << ", " << ez << ")" << std::endl;
-//    std::cerr << "Point(" << dx << ", " << dy << ", " << dz << ")" << std::endl;
+//    std::cerr << "Point(" << eyeX << ", " << eyeY << ", " << eyeZ << ")" << std::endl;
+//    std::cerr << "Point(" << directionX << ", " << directionY << ", " << directionZ << ")" << std::endl;
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     gluPerspective(60, 800 / (double) 600, 0.2, 200);
-    gluLookAt(ex, ey, ez,  dx, dy, dz,  0, 1, 0);
+    gluLookAt(eyeX, eyeY, eyeZ,  directionX, directionY, directionZ,  0, 1, 0);
     // gluLookAt(0, 3.5, -3,
     //           0,   2,  2,
     //           0,   1,  0);
