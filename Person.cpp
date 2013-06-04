@@ -66,8 +66,9 @@ void Person::move(const int direction, int distance) {
 void Person::render()
 {
     glPushMatrix();
-        glTranslatef(position->x + 0.25, position->y, position->z);
+        glTranslatef(position->x, position->y, position->z);
         glRotatef(90-directionAngle, 0, 1, 0);
+        glTranslatef(-0.25, 0, 0);
 
         renderFoot();
 
