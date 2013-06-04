@@ -4,7 +4,7 @@
     #ifndef __gl_h_
         #include <GL/gl.h>
     #endif
-#elif __APPLE__
+#elif __APPLE__ && __MACH__
     #ifndef __gl_h_
         #include <OpenGL/GL.h>
     #endif

@@ -2,11 +2,12 @@
     #include <GL/gl.h>
     #include <GL/glut.h>
     #include <GL/glut.h>
-#elif __APPLE__
+#elif __APPLE__ && __MACH__
     #include <OpenGL/GL.h>
     #include <OpenGL/GLU.h>
     #include <GLUT/GLUT.h>
 #endif
+
 #include "Person.h"
 #include "Camera.h"
 #include "Scene.h"
