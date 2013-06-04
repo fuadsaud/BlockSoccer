@@ -1,3 +1,4 @@
+#pragma once
 #define CAMERA_H
 #define PI 3.141592
 
@@ -19,9 +20,7 @@
     #endif
 #endif
 
-#ifndef PERSON_H
 #include "Person.h"
-#endif
 
 #include <math.h>
 

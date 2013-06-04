@@ -1,3 +1,5 @@
+#pragma once
+
 #define PARALLELEPIPED_H
 
 #ifdef __linux

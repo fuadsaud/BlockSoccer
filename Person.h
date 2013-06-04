@@ -1,4 +1,4 @@
-#define PERSON_H
+#pragma once
 
 #ifdef __linux
     #ifndef __gl_h_
@@ -10,13 +10,8 @@
     #endif
 #endif
 
-#ifndef POINT_H
-    #include "Point.h"
-#endif
-
-#ifndef PARALLELEPIPED_H
-    #include "Parallelepiped.h"
-#endif
+#include "Point.h"
+#include "Parallelepiped.h"
 
 class Person
 {

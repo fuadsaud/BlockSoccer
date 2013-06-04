@@ -6,7 +6,8 @@ Scene::Scene()
     camera = new Camera(player);
 }
 
-void Scene::init() {
+void Scene::init()
+{
     glEnable(GL_DEPTH_TEST);   // Enable depth testing for z-culling
     glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
     glShadeModel(GL_SMOOTH);   // Enable smooth shading
@@ -15,14 +16,17 @@ void Scene::init() {
     camera->syncWithPerson();
 }
 
-void Scene::display() {
+void Scene::display()
+{
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     player->render();
 }
 
-void Scene::keyboardAction(const char key, int x, int y) {
-    switch (key) {
+void Scene::keyboardAction(const char key, int x, int y)
+{
+    switch (key)
+    {
         case 'w':
         case 'W':
             player->move(Person::FRONT, 1);

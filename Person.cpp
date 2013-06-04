@@ -40,6 +40,7 @@ Point * Person::getPosition()
 void Person::move(const int direction, int distance) {
     Point p(0,0,0);
     float radAngle = getDirectionAngle() * M_PI / 180;
+
     switch (direction) {
         case Person::FRONT:
             p.x = cos(radAngle) * distance;
@@ -50,15 +51,16 @@ void Person::move(const int direction, int distance) {
             p.z -= sin(radAngle) * distance;
             break;
         case Person::LEFT:
-            directionAngle -= distance;
+            directionAngle -= distance * 5;
             break;
         case Person::RIGHT:
-            directionAngle += distance;
+            directionAngle += distance * 5;
             break;
-
     }
+
     position = p+ position;
 }
+
 // Person::rotate();
 
 void Person::render()

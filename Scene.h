@@ -1,10 +1,7 @@
-#ifndef PERSON_H
-#include "Person.h"
-#endif
+#pragma once
 
-#ifndef CAMERA_H
+#include "Person.h"
 #include "Camera.h"
-#endif
 
 class Scene
 {

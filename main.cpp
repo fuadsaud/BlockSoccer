@@ -66,7 +66,8 @@ void display()
     glFlush();
 }
 
-void keyboard(unsigned char key, int x, int y) {
+void keyboard(unsigned char key, int x, int y)
+{
     scene.keyboardAction(key,x,y);
     glutPostRedisplay();
 }
