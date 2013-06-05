@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
     init();
 
-    timer(300);
+    timer(200);
 
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);

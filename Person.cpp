@@ -38,14 +38,30 @@ Point * Person::getPosition()
     return position;
 }
 
-void Person::lookAt(float x, float z) {
-    float productOfModules = sqrt(pow(x,2)+pow(z,2)) * sqrt(pow(position->x,2)+pow(position->z,2));
-    float product = x*position->x + z*position->z;
-    if (productOfModules > 0) {
-        float angle = acos(product/productOfModules);
-        directionAngle = angle;
-        printf("%f %f %f\n",productOfModules,product, angle);
+void Person::lookAt(Point * to) {
+    Point direction(position->x+10,0,position->z);
+    Point* p = new Point(to->x - position->x, 0, to->z - position->z);
+    float base = 0;
+    if (p->z <= 0) {
+        direction.z *= -1;
+        base = 360;
     }
+
+    float pModule = sqrt(pow(p->x,2)+pow(p->z,2));
+
+    float dModule = sqrt(pow(direction.x,2)+pow(direction.z,2));
+
+    float product = p->x*direction.x + p->z + direction.z;
+
+    float productModule = pModule*dModule;
+    if (productModule != 0) {
+        float aux = product/productModule;
+        if ( aux >= -1 && aux <= 1) {
+            float angle = acos(aux)*180/M_PI;
+            setDirectionAngle(angle - base);
+        }
+    }
+
 }
 
 void Person::move(const int direction, int distance) {
@@ -54,12 +70,12 @@ void Person::move(const int direction, int distance) {
 
     switch (direction) {
         case Person::FRONT:
-            p.x = cos(radAngle) * distance;
-            p.z = sin(radAngle) * distance;
+            p.x = cos(radAngle) * distance /10;
+            p.z = sin(radAngle) * distance/10;
             break;
         case Person::BACK:
-            p.x -= cos(radAngle) * distance;
-            p.z -= sin(radAngle) * distance;
+            p.x -= cos(radAngle) * distance/10;
+            p.z -= sin(radAngle) * distance/10;
             break;
         case Person::LEFT:
             directionAngle -= distance * 5;

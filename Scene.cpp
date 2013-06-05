@@ -4,8 +4,10 @@ Scene::Scene()
 {
     player = new Person();
     camera = new Camera(player);
-    opponents.push_back(Person(new Point(10,0,10)));
+    opponents.push_back(Person(new Point(10,0,0)));
     opponents.push_back(Person(new Point(10,0,-10)));
+    opponents.push_back(Person(new Point(10,0,10)));
+    opponents.push_back(Person(new Point(15,0,0)));
 }
 
 void Scene::init()
@@ -32,8 +34,8 @@ void Scene::display()
 void Scene::moveOpponents() {
     for (unsigned i=0; i<opponents.size(); i++) {
         Point * p = player->getPosition();
-        opponents[i].lookAt(p->x,p->z);
-        //opponents[i].move(Person::FRONT,1);
+        opponents[i].lookAt(p);
+        opponents[i].move(Person::FRONT,1);
     }
 }
 

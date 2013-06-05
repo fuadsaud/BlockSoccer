@@ -40,7 +40,7 @@ public:
     float getDirectionAngle();
     Point * getPosition();
 
-    void lookAt(float x, float z);
+    void lookAt(Point* to);
 
     // void rotate(float angle);
     void move(const int direction, int distance);
