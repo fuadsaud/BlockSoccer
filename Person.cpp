@@ -38,61 +38,69 @@ Point * Person::getPosition()
     return position;
 }
 
-void Person::lookAt(Point * to) {
-    Point direction(position->x+10,0,position->z);
+void Person::lookAt(Point * to)
+{
+    Point direction(position->x + 10, 0, position->z);
     Point* p = new Point(to->x - position->x, 0, to->z - position->z);
     float base = 0;
-    if (p->z <= 0) {
+
+    if (p->z <= 0)
+    {
         direction.z *= -1;
         base = 360;
     }
 
-    float pModule = sqrt(pow(p->x,2)+pow(p->z,2));
-
-    float dModule = sqrt(pow(direction.x,2)+pow(direction.z,2));
+    float pModule = sqrt(pow(p->x,2) + pow(p->z, 2));
+    float dModule = sqrt(pow(direction.x, 2) + pow(direction.z, 2));
 
     float product = p->x*direction.x + p->z + direction.z;
+    float productModule = pModule * dModule;
 
-    float productModule = pModule*dModule;
-    if (productModule != 0) {
+    if (productModule != 0)
+    {
         float aux = product/productModule;
-        if ( aux >= -1 && aux <= 1) {
-            float angle = acos(aux)*180/M_PI;
+
+        if ( aux >= -1 && aux <= 1)
+        {
+            float angle = acos(aux) * 180 / M_PI;
             setDirectionAngle(angle - base);
         }
     }
 
 }
 
-void Person::move(const int direction, int distance) {
-    Point p(0,0,0);
+void Person::move(const int direction, int distance)
+{
+    Point p(0, 0, 0);
     float radAngle = getDirectionAngle() * M_PI / 180;
 
-    switch (direction) {
+    switch (direction)
+    {
         case Person::FRONT:
-            p.x = cos(radAngle) * distance /10;
-            p.z = sin(radAngle) * distance/10;
+            p.x = cos(radAngle) * distance / 10;
+            p.z = sin(radAngle) * distance / 10;
             break;
         case Person::BACK:
-            p.x -= cos(radAngle) * distance/10;
-            p.z -= sin(radAngle) * distance/10;
+            p.x -= cos(radAngle) * distance / 10;
+            p.z -= sin(radAngle) * distance / 10;
             break;
         case Person::LEFT:
-            radAngle += M_PI/2;
-            p.x -= cos(radAngle) * distance/10;
-            p.z -= sin(radAngle) * distance/10;
+            radAngle += M_PI / 2;
+            p.x -= cos(radAngle) * distance / 10;
+            p.z -= sin(radAngle) * distance / 10;
             break;
         case Person::RIGHT:
-            radAngle -= M_PI/2;
-            p.x -= cos(radAngle) * distance/10;
-            p.z -= sin(radAngle) * distance/10;
+            radAngle -= M_PI / 2;
+            p.x -= cos(radAngle) * distance / 10;
+            p.z -= sin(radAngle) * distance / 10;
             break;
     }
 
-    position = p+ position;
+    position = p + position;
 }
 
-void Person::rotate(float distance) {
+void Person::rotate(float distance)
+{
     setDirectionAngle(directionAngle + distance);
 }
 
@@ -100,7 +108,7 @@ void Person::render()
 {
     glPushMatrix();
         glTranslatef(position->x, position->y, position->z);
-        glRotatef(90-directionAngle, 0, 1, 0);
+        glRotatef(90 - directionAngle, 0, 1, 0);
         glTranslatef(-0.25, 0, 0);
 
         renderFoot();
