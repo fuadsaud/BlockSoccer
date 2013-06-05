@@ -42,7 +42,7 @@ public:
 
     void lookAt(Point* to);
 
-    // void rotate(float angle);
+    void rotate(float distance);
     void move(const int direction, int distance);
 
     void render();

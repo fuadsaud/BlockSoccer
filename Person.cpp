@@ -78,17 +78,23 @@ void Person::move(const int direction, int distance) {
             p.z -= sin(radAngle) * distance/10;
             break;
         case Person::LEFT:
-            directionAngle -= distance * 5;
+            radAngle += M_PI/2;
+            p.x -= cos(radAngle) * distance/10;
+            p.z -= sin(radAngle) * distance/10;
             break;
         case Person::RIGHT:
-            directionAngle += distance * 5;
+            radAngle -= M_PI/2;
+            p.x -= cos(radAngle) * distance/10;
+            p.z -= sin(radAngle) * distance/10;
             break;
     }
 
     position = p+ position;
 }
 
-// Person::rotate();
+void Person::rotate(float distance) {
+    setDirectionAngle(directionAngle + distance);
+}
 
 void Person::render()
 {

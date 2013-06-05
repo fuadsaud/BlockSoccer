@@ -8,6 +8,9 @@ Scene::Scene()
     opponents.push_back(Person(new Point(10,0,-10)));
     opponents.push_back(Person(new Point(10,0,10)));
     opponents.push_back(Person(new Point(15,0,0)));
+
+
+    goalKepper = new Person(new Point(48,0,0));
 }
 
 void Scene::init()
@@ -16,6 +19,7 @@ void Scene::init()
     glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
     glShadeModel(GL_SMOOTH);   // Enable smooth shading
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glutSetCursor(GLUT_CURSOR_NONE);
 
     camera->syncWithPerson();
 }
@@ -25,6 +29,7 @@ void Scene::display()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     drawScenario();
+    goalKepper->render();
     for (unsigned i=0; i<opponents.size(); i++) {
         opponents[i].render();
     }
@@ -32,11 +37,21 @@ void Scene::display()
 }
 
 void Scene::moveOpponents() {
+    Point * p = player->getPosition();
     for (unsigned i=0; i<opponents.size(); i++) {
-        Point * p = player->getPosition();
         opponents[i].lookAt(p);
         opponents[i].move(Person::FRONT,1);
     }
+    goalKepper->lookAt(p);
+    Point * kp = goalKepper->getPosition();
+    float move = p->z;
+    if (move > 5) {
+        move = 5;
+    } else if (move < -5) {
+        move = -5;
+    }
+    kp->z = move;
+
 }
 
 void Scene::drawScenario() {
@@ -155,4 +170,15 @@ void Scene::keyboardAction(const char key, int x, int y)
     }
 
     camera->syncWithPerson();
+}
+void Scene::passiveMotion(int x, int y) {
+    float height = 800, width = 600;
+    if (x != width/2) {
+        float distance = (x - width/2) / 10;
+        player->rotate(distance);
+        glutWarpPointer(width/2, height/2);
+        camera->syncWithPerson();
+        glutPostRedisplay();
+
+    }
 }
