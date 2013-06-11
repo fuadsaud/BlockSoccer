@@ -1,7 +1,5 @@
 #pragma once
 
-#define POINT_H
-
 class Point
 {
 public:

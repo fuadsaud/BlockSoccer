@@ -1,7 +1,5 @@
 #pragma once
 
-#define PARALLELEPIPED_H
-
 #ifdef __linux
     #ifndef __gl_h_
         #include <GL/gl.h>
