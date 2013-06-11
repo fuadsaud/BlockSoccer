@@ -164,7 +164,7 @@ void Scene::drawScenario()
 
 }
 
-void Scene::keyboardAction(const char key, int x, int y)
+void Scene::keyboard(const char key, int x, int y)
 {
     switch (key)
     {

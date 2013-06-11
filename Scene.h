@@ -36,7 +36,7 @@ public:
 
     void init();
     void display();
-    void keyboardAction(const char key, int x, int y);
+    void keyboard(const char key, int x, int y);
 
     void moveOpponents();
     void passiveMotion(int x, int y);

@@ -78,7 +78,7 @@ void display()
 
 void keyboard(unsigned char key, int x, int y)
 {
-    scene.keyboardAction(key, x, y);
+    scene.keyboard(key, x, y);
 }
 
 void passiveMotion(int x, int y)
