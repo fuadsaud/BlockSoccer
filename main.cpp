@@ -14,6 +14,7 @@
 
 void init();
 void display();
+void idle();
 void timer(int n);
 void keyboard(unsigned char key, int x, int y);
 void passiveMotion(int x, int y);
@@ -33,11 +34,17 @@ int main(int argc, char *argv[])
     timer(100);
 
     glutDisplayFunc(display);
+    glutIdleFunc(idle);
     glutKeyboardFunc(keyboard);
     glutPassiveMotionFunc(passiveMotion);
     glutMainLoop();
 
     return 0;
+}
+
+void idle()
+{
+    glutPostRedisplay();
 }
 
 void timer(int n)
@@ -71,11 +78,10 @@ void display()
 
 void keyboard(unsigned char key, int x, int y)
 {
-    scene.keyboardAction(key,x,y);
-    glutPostRedisplay();
+    scene.keyboardAction(key, x, y);
 }
 
 void passiveMotion(int x, int y)
 {
-    scene.passiveMotion(x,y);
+    scene.passiveMotion(x, y);
 }
