@@ -18,14 +18,16 @@ void Ball::render()
 {
     glPushMatrix();
         Point * playerPosition = player->getPosition();
+        float angle = player->getDirectionAngle();
 
-        glTranslatef(playerPosition->x + 0.2,
-                     playerPosition->y + 1,
-                     playerPosition->z);
+        float radAngle = M_PI * angle / 180;
+
+        glTranslatef(playerPosition->x + cos(radAngle) * 0.1,
+                     playerPosition->y + 0.5,
+                     playerPosition->z + sin(radAngle) * 0.1);
 
         glColor3f(1, 1, 1);
         glutSolidSphere(0.2, 10, 10);
-
     glPopMatrix();
 }
 

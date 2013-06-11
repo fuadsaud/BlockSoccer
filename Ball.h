@@ -2,6 +2,7 @@
 
 #include "Includes.h"
 
+#include <math.h>
 #include "Person.h"
 #include "Point.h"
 

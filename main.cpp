@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
 void idle()
 {
-    glutPostRedisplay();
+
 }
 
 void timer(int n)
@@ -44,6 +44,7 @@ void timer(int n)
     scene.moveOpponents();
 
     glutPostRedisplay();
+
     glutTimerFunc(n, timer, n);
 }
 
