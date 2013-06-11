@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Includes.h"
+
 class Point
 {
 public:

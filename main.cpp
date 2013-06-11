@@ -1,12 +1,4 @@
-#ifdef __linux
-    #include <GL/gl.h>
-    #include <GL/glut.h>
-    #include <GL/glut.h>
-#elif __APPLE__ && __MACH__
-    #include <OpenGL/GL.h>
-    #include <OpenGL/GLU.h>
-    #include <GLUT/GLUT.h>
-#endif
+#include "Includes.h"
 
 #include "Person.h"
 #include "Camera.h"
