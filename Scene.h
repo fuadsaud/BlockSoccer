@@ -30,6 +30,8 @@
 class Scene
 {
 public:
+    static const int PLAYER_MOVEMENT_AMOUNT = 5;
+
     Scene();
 
     void init();

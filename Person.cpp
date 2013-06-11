@@ -69,7 +69,7 @@ void Person::lookAt(Point * to)
 
 }
 
-void Person::move(const int direction, int distance)
+void Person::move(const int direction, int amount)
 {
     Point p(0, 0, 0);
     float radAngle = getDirectionAngle() * M_PI / 180;
@@ -77,31 +77,31 @@ void Person::move(const int direction, int distance)
     switch (direction)
     {
         case Person::FRONT:
-            p.x = cos(radAngle) * distance / 10;
-            p.z = sin(radAngle) * distance / 10;
+            p.x = cos(radAngle) * amount / 10;
+            p.z = sin(radAngle) * amount / 10;
             break;
         case Person::BACK:
-            p.x -= cos(radAngle) * distance / 10;
-            p.z -= sin(radAngle) * distance / 10;
+            p.x -= cos(radAngle) * amount / 10;
+            p.z -= sin(radAngle) * amount / 10;
             break;
         case Person::LEFT:
             radAngle += M_PI / 2;
-            p.x -= cos(radAngle) * distance / 10;
-            p.z -= sin(radAngle) * distance / 10;
+            p.x -= cos(radAngle) * amount / 10;
+            p.z -= sin(radAngle) * amount / 10;
             break;
         case Person::RIGHT:
             radAngle -= M_PI / 2;
-            p.x -= cos(radAngle) * distance / 10;
-            p.z -= sin(radAngle) * distance / 10;
+            p.x -= cos(radAngle) * amount / 10;
+            p.z -= sin(radAngle) * amount / 10;
             break;
     }
 
     position = p + position;
 }
 
-void Person::rotate(float distance)
+void Person::rotate(float amount)
 {
-    setDirectionAngle(directionAngle + distance);
+    setDirectionAngle(directionAngle + amount);
 }
 
 void Person::render()

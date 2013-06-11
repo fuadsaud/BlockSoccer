@@ -15,19 +15,6 @@
 
 class Person
 {
-private:
-    Point * position;
-
-    float directionAngle;
-
-    void setDirectionAngle(float angle);
-
-    void renderFoot();
-    void renderLeg();
-    void renderBody();
-    void renderArm(const int leftOrRight);
-
-
 public:
     const static int FRONT = 1;
     const static int BACK  = 2;
@@ -42,8 +29,20 @@ public:
 
     void lookAt(Point* to);
 
-    void rotate(float distance);
-    void move(const int direction, int distance);
+    void rotate(float amount);
+    void move(const int direction, int amount);
 
     void render();
+
+private:
+    Point * position;
+
+    float directionAngle;
+
+    void setDirectionAngle(float angle);
+
+    void renderFoot();
+    void renderLeg();
+    void renderBody();
+    void renderArm(const int leftOrRight);
 };

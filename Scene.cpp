@@ -170,19 +170,19 @@ void Scene::keyboardAction(const char key, int x, int y)
     {
         case 'w':
         case 'W':
-            player->move(Person::FRONT, 1);
+            player->move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT);
             break;
         case 's':
         case 'S':
-            player->move(Person::BACK, 1);
+            player->move(Person::BACK, PLAYER_MOVEMENT_AMOUNT);
             break;
         case 'a':
         case 'A':
-            player->move(Person::LEFT, 1);
+            player->move(Person::LEFT, PLAYER_MOVEMENT_AMOUNT);
             break;
         case 'd':
         case 'D':
-            player->move(Person::RIGHT, 1);
+            player->move(Person::RIGHT, PLAYER_MOVEMENT_AMOUNT);
             break;
         case 'q':
         case 'Q':
@@ -205,6 +205,5 @@ void Scene::passiveMotion(int x, int y)
         glutWarpPointer(width / 2, height / 2);
 
         camera->syncWithPerson();
-        glutPostRedisplay();
     }
 }
