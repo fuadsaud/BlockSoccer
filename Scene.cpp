@@ -4,6 +4,7 @@ Scene::Scene()
 {
     player = new Person();
     camera = new Camera(player);
+    ball = new Ball(player);
     opponents.push_back(Person(new Point(10, 0,   0)));
     opponents.push_back(Person(new Point(10, 0, -10)));
     opponents.push_back(Person(new Point(10, 0,  10)));
@@ -37,6 +38,7 @@ void Scene::display()
     }
 
     player->render();
+    ball->render();
 }
 
 void Scene::moveOpponents()
@@ -46,7 +48,7 @@ void Scene::moveOpponents()
     for (unsigned i = 0; i < opponents.size(); i++)
     {
         opponents[i].lookAt(p);
-        opponents[i].move(Person::FRONT, 1);
+        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT - 4);
     }
 
     goalKepper->lookAt(p);

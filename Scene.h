@@ -23,9 +23,9 @@ public:
     void passiveMotion(int x, int y);
 
 private:
-    Ball * ball;
     Person * player;
     Camera * camera;
+    Ball * ball;
     Person * goalKepper;
     std::vector<Person> opponents;
 
