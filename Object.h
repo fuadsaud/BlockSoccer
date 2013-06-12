@@ -26,10 +26,16 @@ public:
 
     void render();
 
+    float getRadius();
+
+    bool hasColision(Object o);
+
 protected:
     void setDirectionAngle(float angle);
 
     Point * position;
 
     float directionAngle;
+
+    float radius;
 };

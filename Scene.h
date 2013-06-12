@@ -20,6 +20,7 @@ public:
 
     void keyboard(const char key, int x, int y);
     void passiveMotion(int x, int y);
+    void detectecColisions();
 
 
 private:

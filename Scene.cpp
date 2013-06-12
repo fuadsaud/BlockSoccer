@@ -45,6 +45,7 @@ void Scene::animate()
 {
     ballBehavior();
     adversaryTeamBehavior();
+    detectecColisions();
 }
 
 void Scene::drawScenario()
@@ -195,10 +196,12 @@ void Scene::adversaryTeamBehavior()
 {
     Point * p = player->getPosition();
 
+    srand(time(0));
     for (unsigned i = 0; i < opponents.size(); i++)
     {
         opponents[i].lookAt(p);
-        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT - 4);
+        int total = rand() % 4 + 2;
+        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT * 1 / total);
     }
 
     goalKepper->lookAt(p);
@@ -222,5 +225,21 @@ void Scene::ballBehavior()
     if (!ball->attached())
     {
         ball->go();
+    }
+}
+
+void Scene::detectecColisions() {
+    for (unsigned i = 0; i < opponents.size(); i++) {
+        if (player->hasColision((Object)opponents[i])) {
+            //@todo perdeu
+        }
+    }
+    for (unsigned i = 0; i < opponents.size()-1; i++) {
+        for (unsigned j = i+1; j < opponents.size(); j++) {
+            if (opponents[i].hasColision((Object)opponents[j])) {
+                opponents[i].move(Object::BACK,3);
+                opponents[j].move(Object::FRONT,3);
+            }
+        }
     }
 }

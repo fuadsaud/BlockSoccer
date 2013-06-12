@@ -1,4 +1,5 @@
 #include "Object.h"
+#include <iostream>
 
 Object::Object()
 {
@@ -101,4 +102,30 @@ void Object::move(const int direction, int amount)
 void Object::rotate(float amount)
 {
     setDirectionAngle(directionAngle + amount);
+}
+
+bool Object::hasColision(Object o) {
+    bool result = false;
+    Point *myCenter = getPosition();
+    Point *otherCenter = o.getPosition();
+    double distance = sqrt(
+        pow(
+            (double)(myCenter->x - otherCenter->x),
+            2
+        )
+        +
+        pow (
+            (double)(myCenter->z - otherCenter->z),
+            2
+        )
+    );
+    if (distance <= (o.getRadius() + getRadius())) {
+        result = true;
+    }
+
+    return result;
+}
+
+float Object::getRadius() {
+    return radius;
 }
