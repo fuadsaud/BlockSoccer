@@ -41,11 +41,11 @@ void Scene::display()
     ball->render();
 }
 
-void Scene::animate()
+void Scene::background()
 {
     ballBehavior();
     adversaryTeamBehavior();
-    detectecColisions();
+    collisionMonitor();
 }
 
 void Scene::drawScenario()
@@ -228,17 +228,24 @@ void Scene::ballBehavior()
     }
 }
 
-void Scene::detectecColisions() {
-    for (unsigned i = 0; i < opponents.size(); i++) {
-        if (player->hasColision((Object)opponents[i])) {
-            //@todo perdeu
+void Scene::collisionMonitor()
+{
+    for (unsigned i = 0; i < opponents.size(); i++)
+    {
+        if (player->collidingWith((Object) opponents[i]))
+        {
+            // TODO: game over
         }
     }
-    for (unsigned i = 0; i < opponents.size()-1; i++) {
-        for (unsigned j = i+1; j < opponents.size(); j++) {
-            if (opponents[i].hasColision((Object)opponents[j])) {
-                opponents[i].move(Object::BACK,3);
-                opponents[j].move(Object::FRONT,3);
+
+    for (unsigned i = 0; i < opponents.size() - 1; i++)
+    {
+        for (unsigned j = i + 1; j < opponents.size(); j++)
+        {
+            if (opponents[i].collidingWith((Object) opponents[j]))
+            {
+                opponents[i].move(Object::BACK, 3);
+                opponents[j].move(Object::FRONT, 3);
             }
         }
     }

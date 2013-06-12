@@ -28,7 +28,7 @@ public:
 
     float getRadius();
 
-    bool hasColision(Object o);
+    bool collidingWith(Object o);
 
 protected:
     void setDirectionAngle(float angle);

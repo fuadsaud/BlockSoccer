@@ -104,28 +104,24 @@ void Object::rotate(float amount)
     setDirectionAngle(directionAngle + amount);
 }
 
-bool Object::hasColision(Object o) {
+bool Object::collidingWith(Object o)
+{
     bool result = false;
-    Point *myCenter = getPosition();
-    Point *otherCenter = o.getPosition();
-    double distance = sqrt(
-        pow(
-            (double)(myCenter->x - otherCenter->x),
-            2
-        )
-        +
-        pow (
-            (double)(myCenter->z - otherCenter->z),
-            2
-        )
+    Point * myCenter = getPosition();
+    Point * otherCenter = o.getPosition();
+    double distance = sqrt(pow((double) (myCenter->x - otherCenter->x), 2) +
+                           pow((double) (myCenter->z - otherCenter->z), 2)
     );
-    if (distance <= (o.getRadius() + getRadius())) {
+
+    if (distance <= (o.getRadius() + getRadius()))
+    {
         result = true;
     }
 
     return result;
 }
 
-float Object::getRadius() {
+float Object::getRadius()
+{
     return radius;
 }

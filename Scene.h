@@ -16,11 +16,10 @@ public:
     void init();
     void display();
 
-    void animate();
+    void background();
 
     void keyboard(const char key, int x, int y);
     void passiveMotion(int x, int y);
-    void detectecColisions();
 
 
 private:
@@ -31,6 +30,8 @@ private:
     std::vector<Person> opponents;
 
     void drawScenario();
+
     void adversaryTeamBehavior();
     void ballBehavior();
+    void collisionMonitor();
 };
