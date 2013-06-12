@@ -1,8 +1,5 @@
 #include "Object.h"
 
-#include <math.h>
-#include <stdio.h>
-
 Object::Object()
 {
     Object::position = new Point(0, 0, 0);

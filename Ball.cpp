@@ -1,7 +1,5 @@
 #include "Ball.h"
 
-#include <iostream>
-
 Ball::Ball()
 {
     position = new Point();

@@ -3,7 +3,6 @@
 #include "Includes.h"
 
 #include "Person.h"
-#include <math.h>
 
 class Camera
 {

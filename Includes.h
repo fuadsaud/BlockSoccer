@@ -1,5 +1,4 @@
-#ifndef INCLUDES
-#define INCLUDES
+#pragma once
 
 #ifdef __linux
     #ifndef __gl_h_
@@ -23,4 +22,7 @@
     #endif
 #endif
 
-#endif
+#include <math.h>
+#include <stdlib.h>
+#include <ostream>
+#include <vector>

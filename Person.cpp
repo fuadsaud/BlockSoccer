@@ -1,8 +1,5 @@
 #include "Person.h"
 
-#include <math.h>
-#include <stdio.h>
-
 Person::Person()
 {
     Person::position = new Point(0, 0, 0);

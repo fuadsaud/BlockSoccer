@@ -5,8 +5,6 @@
 #include "Ball.h"
 #include "Person.h"
 #include "Camera.h"
-#include <vector>
-#include <stdlib.h>
 
 class Scene
 {
