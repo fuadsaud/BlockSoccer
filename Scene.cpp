@@ -172,24 +172,26 @@ void Scene::keyboard(const char key, int x, int y)
     {
         case 'w':
         case 'W':
-            player->move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT);
             break;
         case 's':
         case 'S':
-            player->move(Person::BACK, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::BACK, PLAYER_MOVEMENT_AMOUNT);
             break;
         case 'a':
         case 'A':
-            player->move(Person::LEFT, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::LEFT, PLAYER_MOVEMENT_AMOUNT);
             break;
         case 'd':
         case 'D':
-            player->move(Person::RIGHT, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::RIGHT, PLAYER_MOVEMENT_AMOUNT);
+            break;
+        case ' ':
+            ball->go();
             break;
         case 'q':
         case 'Q':
             exit(0);
-            break;
     }
 
     camera->syncWithPerson();
@@ -203,9 +205,8 @@ void Scene::passiveMotion(int x, int y)
         float distance = (x - width / 2) / 10;
 
         player->rotate(distance);
+        camera->syncWithPerson();
 
         glutWarpPointer(width / 2, height / 2);
-
-        camera->syncWithPerson();
     }
 }
