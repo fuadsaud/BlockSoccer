@@ -15,10 +15,12 @@ public:
 
     void init();
     void display();
-    void keyboard(const char key, int x, int y);
 
-    void moveOpponents();
+    void animate();
+
+    void keyboard(const char key, int x, int y);
     void passiveMotion(int x, int y);
+
 
 private:
     Person * player;
@@ -28,4 +30,6 @@ private:
     std::vector<Person> opponents;
 
     void drawScenario();
+    void adversaryTeamBehavior();
+    void ballBehavior();
 };

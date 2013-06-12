@@ -1,5 +1,7 @@
 #include "Ball.h"
 
+#include <iostream>
+
 Ball::Ball()
 {
     position = new Point();
@@ -13,9 +15,10 @@ Ball::Ball(Person * p)
 
 void Ball::go()
 {
-    detach();
-
-    move(Object::FRONT, 30);
+    if (!attached())
+    {
+        move(Object::FRONT, 20);
+    }
 }
 
 void Ball::render()
@@ -24,9 +27,10 @@ void Ball::render()
 
         if (attached())
         {
-            Point * playerPosition = player->getPosition();
+            setDirectionAngle(player->getDirectionAngle());
 
-            float radAngle = M_PI * player->getDirectionAngle() / 180;
+            Point * playerPosition = player->getPosition();
+            float radAngle = M_PI * getDirectionAngle() / 180;
 
             position->x = playerPosition->x + cos(radAngle) * 0.1;
             position->y = playerPosition->y + 0.5;
@@ -52,6 +56,5 @@ bool Ball::attached()
 
 void Ball::detach()
 {
-
     player = 0;
 }

@@ -10,7 +10,7 @@ Scene::Scene()
     opponents.push_back(Person(new Point(10, 0,  10)));
     opponents.push_back(Person(new Point(15, 0,   0)));
 
-    goalKepper = new Person(new Point(48,0,0));
+    goalKepper = new Person(new Point(48, 0, 0));
 }
 
 void Scene::init()
@@ -41,30 +41,10 @@ void Scene::display()
     ball->render();
 }
 
-void Scene::moveOpponents()
+void Scene::animate()
 {
-    Point * p = player->getPosition();
-
-    for (unsigned i = 0; i < opponents.size(); i++)
-    {
-        opponents[i].lookAt(p);
-        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT - 4);
-    }
-
-    goalKepper->lookAt(p);
-
-    Point * kp = goalKepper->getPosition();
-    float move = p->z;
-
-    if (move > 5)
-    {
-        move = 5;
-    } else if (move < -5)
-    {
-        move = -5;
-    }
-
-    kp->z = move;
+    ballBehavior();
+    adversaryTeamBehavior();
 }
 
 void Scene::drawScenario()
@@ -156,7 +136,7 @@ void Scene::drawScenario()
         GLUquadricObj *quadObj = gluNewQuadric();
         gluCylinder(quadObj, 0.1, 0.1, 3.5, 10, 10);
 
-        glTranslatef(0,-10,0);
+        glTranslatef(0, -10, 0);
         gluCylinder(quadObj, 0.1, 0.1, 3.5, 10, 10);
 
         glTranslatef(0, 0, 3.4);
@@ -187,7 +167,7 @@ void Scene::keyboard(const char key, int x, int y)
             player->move(Object::RIGHT, PLAYER_MOVEMENT_AMOUNT);
             break;
         case ' ':
-            ball->go();
+            ball->detach();
             break;
         case 'q':
         case 'Q':
@@ -209,4 +189,35 @@ void Scene::passiveMotion(int x, int y)
 
         glutWarpPointer(width / 2, height / 2);
     }
+}
+
+void Scene::adversaryTeamBehavior()
+{
+    Point * p = player->getPosition();
+
+    for (unsigned i = 0; i < opponents.size(); i++)
+    {
+        opponents[i].lookAt(p);
+        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT - 4);
+    }
+
+    goalKepper->lookAt(p);
+
+    Point * kp = goalKepper->getPosition();
+    float move = p->z;
+
+    if (move > 5)
+    {
+        move = 5;
+    } else if (move < -5)
+    {
+        move = -5;
+    }
+
+    kp->z = move;
+}
+
+void Scene::ballBehavior()
+{
+    ball->go();
 }
