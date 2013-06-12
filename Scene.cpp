@@ -219,5 +219,8 @@ void Scene::adversaryTeamBehavior()
 
 void Scene::ballBehavior()
 {
-    ball->go();
+    if (!ball->attached())
+    {
+        ball->go();
+    }
 }
