@@ -12,5 +12,5 @@ public:
 Point();
     Point(float x, float y, float z);
 
-    Point* operator+(const Point* p) const;
+    Point * operator+(const Point* p) const;
 };

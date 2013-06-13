@@ -60,7 +60,8 @@ void Object::lookAt(Point * to)
         {
             float angle = acos(aux) * 180 / M_PI;
 
-            if (p->z <= 0) {
+            if (p->z <= 0)
+            {
                 angle = 360 - angle;
             }
 
