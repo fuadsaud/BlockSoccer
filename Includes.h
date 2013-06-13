@@ -24,5 +24,5 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <ostream>
+#include <iostream>
 #include <vector>
