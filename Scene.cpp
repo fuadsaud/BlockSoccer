@@ -37,8 +37,8 @@ void Scene::display()
         opponents[i].render();
     }
 
-    player->render();
     ball->render();
+    player->render();
 }
 
 void Scene::background()
@@ -182,7 +182,8 @@ void Scene::passiveMotion(int x, int y)
 {
     float height = 800, width = 600;
 
-    if (x != width / 2) {
+    if (x != width / 2)
+    {
         float distance = (x - width / 2) / 10;
 
         player->rotate(distance);
