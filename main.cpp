@@ -3,6 +3,7 @@
 #include "Person.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "Game.h"
 
 void init();
 void display();
@@ -10,7 +11,7 @@ void background(int n);
 void keyboard(unsigned char key, int x, int y);
 void passiveMotion(int x, int y);
 
-Scene scene;
+Game * game = new Game();
 
 int main(int argc, char *argv[])
 {
@@ -39,7 +40,7 @@ void init()
 
     glViewport(0, 0, 800, 600);
 
-    scene.init();
+    game->getCurrentRound()->init();
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -47,7 +48,7 @@ void init()
 
 void display()
 {
-    scene.display();
+    game->getCurrentRound()->display();
 
     glutSwapBuffers();
     glFlush();
@@ -55,17 +56,17 @@ void display()
 
 void keyboard(unsigned char key, int x, int y)
 {
-    scene.keyboard(key, x, y);
+    game->getCurrentRound()->keyboard(key, x, y);
 }
 
 void passiveMotion(int x, int y)
 {
-    scene.passiveMotion(x, y);
+    game->getCurrentRound()->passiveMotion(x, y);
 }
 
 void background(int time)
 {
-    scene.background();
+    game->getCurrentRound()->background();
 
     glutPostRedisplay();
 
