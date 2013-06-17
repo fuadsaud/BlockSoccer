@@ -32,7 +32,7 @@ void Scene::display()
     drawScenario();
     goalKepper->render();
 
-    for (unsigned i = 0; i < opponents.size(); i++)
+    for(unsigned int i = 0; i < opponents.size(); i++)
     {
         opponents[i].render();
     }
@@ -80,7 +80,7 @@ void Scene::drawScenario()
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-        for (int i = 0; i < 360; i++)
+        for(unsigned int i = 0; i < 360; i++)
         {
             float angle = i * M_PI / 180;
             glVertex3f(cos(angle) * 4, 0.01, sin(angle) * 4);
@@ -116,7 +116,7 @@ void Scene::drawScenario()
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-        for (int i = 90; i < 270; i++)
+        for(unsigned int i = 90; i < 270; i++)
         {
             float angle = i * M_PI / 180;
             glVertex3f(cos(angle) *2 + w / 2 - 15, 0.01, sin(angle) * 4);
@@ -124,7 +124,7 @@ void Scene::drawScenario()
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-        for (int i = 270; i < 450; i++)
+        for(unsigned int i = 270; i < 450; i++)
         {
             float angle = i * M_PI / 180;
             glVertex3f(cos(angle) * 2 - w / 2 + 15, 0.01, sin(angle) * 4);
@@ -144,7 +144,6 @@ void Scene::drawScenario()
         glRotatef(-90, 1, 0, 0);
         gluCylinder(quadObj, 0.1, 0.1, 10, 10, 10);
     glPopMatrix();
-
 }
 
 void Scene::keyboard(const char key, int x, int y)
@@ -198,7 +197,7 @@ void Scene::adversaryTeamBehavior()
     Point * p = player->getPosition();
 
     srand(time(0));
-    for (unsigned i = 0; i < opponents.size(); i++)
+    for(unsigned int i = 0; i < opponents.size(); i++)
     {
         opponents[i].lookAt(p);
         int total = rand() % 4 + 2;
@@ -231,7 +230,7 @@ void Scene::ballBehavior()
 
 void Scene::collisionMonitor()
 {
-    for (unsigned i = 0; i < opponents.size(); i++)
+    for(unsigned int i = 0; i < opponents.size(); i++)
     {
         if (player->collidingWith((Object) opponents[i]))
         {
@@ -239,9 +238,9 @@ void Scene::collisionMonitor()
         }
     }
 
-    for (unsigned i = 0; i < opponents.size() - 1; i++)
+    for(unsigned int i = 0; i < opponents.size() - 1; i++)
     {
-        for (unsigned j = i + 1; j < opponents.size(); j++)
+        for(unsigned int j = i + 1; j < opponents.size(); j++)
         {
             if (opponents[i].collidingWith((Object) opponents[j]))
             {

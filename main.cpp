@@ -2,7 +2,6 @@
 
 #include "Person.h"
 #include "Camera.h"
-#include "Scene.h"
 #include "Game.h"
 
 void init();
@@ -38,7 +37,7 @@ void init()
     glClearColor(0, 0, 0, 0);
     glClearDepth(1.0);
 
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_WIDTH));
 
     game->getCurrentRound()->init();
 
