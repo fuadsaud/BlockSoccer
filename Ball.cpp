@@ -3,12 +3,14 @@
 Ball::Ball()
 {
     position = new Point();
+    radius = 0.2;
 }
 
 Ball::Ball(Person * p)
 {
     attach(p);
     position = new Point();
+    radius = 0.2;
 }
 
 void Ball::go()

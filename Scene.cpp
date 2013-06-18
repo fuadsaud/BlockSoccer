@@ -232,13 +232,34 @@ void Scene::collisionMonitor()
 {
     Point * p = player->getPosition();
 
+    std::vector<Person> allOpponents(opponents);
+    allOpponents.push_back(*goalKepper);
+
     if (p->x < -50 || p->x > 50 || p->z < -25 || p->z > 25 ) {
         // TODO : game over
     }
 
-    for(unsigned int i = 0; i < opponents.size(); i++)
+
+    Point * ballPoint = ball->getPosition();
+    if (ballPoint->x < -50 || ballPoint->x > 50 || ballPoint->z < -25 || ballPoint->z > 25 ) {
+        if (ballPoint->x > 50 && ballPoint->z > -5 && ballPoint->z < 5) {
+            std::cout << "GOLLLLLLL" << std::endl;
+        } else {
+            // TODO : game over
+        }
+    }
+
+    for(unsigned int i = 0; i < allOpponents.size(); i++)
     {
-        if (player->collidingWith((Object) opponents[i]))
+        if (player->collidingWith((Object) allOpponents[i]))
+        {
+            // TODO: game over
+        }
+    }
+
+    for(unsigned int i = 0; i < allOpponents.size(); i++)
+    {
+        if (ball->collidingWith((Object) allOpponents[i]))
         {
             // TODO: game over
         }
