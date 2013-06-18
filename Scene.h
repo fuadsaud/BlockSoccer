@@ -6,12 +6,14 @@
 #include "Person.h"
 #include "Camera.h"
 
+class Game;
+
 class Scene
 {
 public:
     const static float PLAYER_MOVEMENT_AMOUNT = 0.11;
 
-    Scene();
+    Scene(Game* g);
 
     void init();
     void display();
@@ -34,4 +36,9 @@ private:
     void adversaryTeamBehavior();
     void ballBehavior();
     void collisionMonitor();
+    void end(bool success);
+
+    Game * game;
 };
+
+#include "Game.h"

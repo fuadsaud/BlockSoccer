@@ -1,7 +1,8 @@
 #include "Scene.h"
 
-Scene::Scene()
+Scene::Scene(Game *g)
 {
+    game = g;
     player = new Person();
     camera = new Camera(player);
     ball = new Ball(player);
@@ -46,6 +47,7 @@ void Scene::background()
     ballBehavior();
     adversaryTeamBehavior();
     collisionMonitor();
+    game->getCurrentRound();
     glutPostRedisplay();
 }
 
@@ -236,16 +238,16 @@ void Scene::collisionMonitor()
     allOpponents.push_back(*goalKepper);
 
     if (p->x < -50 || p->x > 50 || p->z < -25 || p->z > 25 ) {
-        // TODO : game over
+        end(false);
     }
 
 
     Point * ballPoint = ball->getPosition();
     if (ballPoint->x < -50 || ballPoint->x > 50 || ballPoint->z < -25 || ballPoint->z > 25 ) {
         if (ballPoint->x > 50 && ballPoint->z > -5 && ballPoint->z < 5) {
-            std::cout << "GOLLLLLLL" << std::endl;
+            end(true);
         } else {
-            // TODO : game over
+            end(false);
         }
     }
 
@@ -253,7 +255,7 @@ void Scene::collisionMonitor()
     {
         if (player->collidingWith((Object) allOpponents[i]))
         {
-            // TODO: game over
+            end(false);
         }
     }
 
@@ -261,7 +263,7 @@ void Scene::collisionMonitor()
     {
         if (ball->collidingWith((Object) allOpponents[i]))
         {
-            // TODO: game over
+            end(false);
         }
     }
 
@@ -276,4 +278,9 @@ void Scene::collisionMonitor()
             }
         }
     }
+}
+
+void Scene::end(bool success) {
+    // TODO show results on the window
+    game->endRound(success);
 }
