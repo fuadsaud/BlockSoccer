@@ -22,7 +22,7 @@ public:
     void lookAt(Point* to);
 
     void rotate(float amount);
-    void move(const int direction, int amount);
+    void move(const int direction, float amount);
 
     void render();
 
@@ -30,8 +30,11 @@ public:
 
     bool collidingWith(Object o);
 
+    float getShift();
+
 protected:
     void setDirectionAngle(float angle);
+
 
     Point * position;
 

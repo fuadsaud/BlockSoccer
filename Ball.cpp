@@ -15,7 +15,7 @@ void Ball::go()
 {
     if (!attached())
     {
-        move(Object::FRONT, 20);
+        move(Object::FRONT, 1);
     }
 }
 

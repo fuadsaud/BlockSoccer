@@ -46,6 +46,7 @@ void Scene::background()
     ballBehavior();
     adversaryTeamBehavior();
     collisionMonitor();
+    glutPostRedisplay();
 }
 
 void Scene::drawScenario()
@@ -200,8 +201,7 @@ void Scene::adversaryTeamBehavior()
     for(unsigned int i = 0; i < opponents.size(); i++)
     {
         opponents[i].lookAt(p);
-        int total = rand() % 4 + 2;
-        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT * 1 / total);
+        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT*0.9);
     }
 
     goalKepper->lookAt(p);
@@ -230,6 +230,12 @@ void Scene::ballBehavior()
 
 void Scene::collisionMonitor()
 {
+    Point * p = player->getPosition();
+
+    if (p->x < -50 || p->x > 50 || p->z < -25 || p->z > 25 ) {
+        // TODO : game over
+    }
+
     for(unsigned int i = 0; i < opponents.size(); i++)
     {
         if (player->collidingWith((Object) opponents[i]))
@@ -244,8 +250,8 @@ void Scene::collisionMonitor()
         {
             if (opponents[i].collidingWith((Object) opponents[j]))
             {
-                opponents[i].move(Object::BACK, 3);
-                opponents[j].move(Object::FRONT, 3);
+                opponents[i].move(Object::BACK, PLAYER_MOVEMENT_AMOUNT*0.9);
+                opponents[j].move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT*0.9);
             }
         }
     }

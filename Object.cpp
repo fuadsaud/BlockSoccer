@@ -70,7 +70,7 @@ void Object::lookAt(Point * to)
     }
 }
 
-void Object::move(const int direction, int amount)
+void Object::move(const int direction, float amount)
 {
     Point p(0, 0, 0);
     float radAngle = getDirectionAngle() * M_PI / 180;
@@ -78,22 +78,22 @@ void Object::move(const int direction, int amount)
     switch (direction)
     {
         case Object::FRONT:
-            p.x = cos(radAngle) * amount / 10;
-            p.z = sin(radAngle) * amount / 10;
+            p.x = cos(radAngle) * amount;
+            p.z = sin(radAngle) * amount;
             break;
         case Object::BACK:
-            p.x -= cos(radAngle) * amount / 10;
-            p.z -= sin(radAngle) * amount / 10;
+            p.x -= cos(radAngle) * amount;
+            p.z -= sin(radAngle) * amount;
             break;
         case Object::LEFT:
             radAngle += M_PI / 2;
-            p.x -= cos(radAngle) * amount / 10;
-            p.z -= sin(radAngle) * amount / 10;
+            p.x -= cos(radAngle) * amount;
+            p.z -= sin(radAngle) * amount;
             break;
         case Object::RIGHT:
             radAngle -= M_PI / 2;
-            p.x -= cos(radAngle) * amount / 10;
-            p.z -= sin(radAngle) * amount / 10;
+            p.x -= cos(radAngle) * amount;
+            p.z -= sin(radAngle) * amount;
             break;
     }
 

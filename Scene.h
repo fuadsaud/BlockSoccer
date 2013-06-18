@@ -9,7 +9,7 @@
 class Scene
 {
 public:
-    const static int PLAYER_MOVEMENT_AMOUNT = 5;
+    const static float PLAYER_MOVEMENT_AMOUNT = 0.11;
 
     Scene();
 

@@ -6,7 +6,7 @@
 
 void init();
 void display();
-void background(int n);
+void background();
 void keyboard(unsigned char key, int x, int y);
 void passiveMotion(int x, int y);
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     init();
 
-    background(100);
+    glutIdleFunc(background);
 
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
@@ -63,11 +63,8 @@ void passiveMotion(int x, int y)
     game->getCurrentRound()->passiveMotion(x, y);
 }
 
-void background(int time)
+void background()
 {
     game->getCurrentRound()->background();
 
-    glutPostRedisplay();
-
-    glutTimerFunc(time, background, time);
 }
