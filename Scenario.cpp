@@ -1,8 +1,7 @@
 #include "Scenario.h"
 
-Scenario::Scenario(float w, float l) {
+Scenario::Scenario(float w) {
     width = w;
-    lenght = l;
 }
 
 void Scenario::render() {
@@ -18,7 +17,7 @@ float Scenario::getWidth() {
 }
 
 float Scenario::getLenght() {
-    return lenght;
+    return width / 2;
 }
 
 void Scenario::renderGround() {

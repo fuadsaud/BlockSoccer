@@ -2,7 +2,7 @@
 
 Scene::Scene(Game *  g) {
     game = g;
-    scenario = new Scenario(100, 100);
+    scenario = new Scenario(100);
     player = new Person(PLAYER_MOVEMENT_AMOUNT);
     camera = new Camera(player);
     ball = new Ball(player);
@@ -126,43 +126,36 @@ void Scene::ballBehavior() {
 }
 
 void Scene::collisionMonitor() {
-    Point * playerPosition = player->getPosition();
+    Point * ballPosition = ball->getPosition();
 
     std::vector<Person> allOpponents(opponents);
     allOpponents.push_back(*goalKepper);
 
-    // This checks wheter the player is outside the field.
-    if (playerPosition->x < -50 || playerPosition->x > 50 ||
-        playerPosition->z < -25 || playerPosition->z > 25 ) {
-        end(false);
-    }
+    if (!player->isInside(scenario)) end(false); // GAME OVER!
 
-    Point * ballPosition = ball->getPosition();
-
-    // This checks wheter the ball is outside the field.
-    if (ballPosition->x < -50 || ballPosition->x > 50 ||
-        ballPosition->z < -25 || ballPosition->z > 25 ) {
+    // This checks whether the ball is outside the field.
+    if (!ball->isInside(scenario)) {
         if (ballPosition->x > 50 && // Was it on the goal side of the field?
-            ballPosition->z > -5 && ballPosition->z < 5) { // Was it a goal?
+            ballPosition->z > -5 && // Was it a goal?
+            ballPosition->z < 5) {
             end(true);
-        }
-        else end(false);
-    }
-
-    for (unsigned int i = 0; i < allOpponents.size(); i++) {
-        if (player->collidingWith((Object) allOpponents[i]))
+        } else {
             end(false);
+        }
     }
 
     for (unsigned int i = 0; i < allOpponents.size(); i++) {
-        if (ball->collidingWith((Object) allOpponents[i])) end(false);
-    }
+        Object * opponent = &((Object) allOpponents[i]);
 
-    for (unsigned int i = 0; i < opponents.size() - 1; i++) {
+        if (player->collidingWith(opponent) ||
+            ball->collidingWith(opponent)) {
+            end(false);
+        }
+
         for (unsigned int j = i + 1; j < opponents.size(); j++) {
-            if (opponents[i].collidingWith((Object) opponents[j])) {
-                opponents[i].move(Object::BACK);
+            if (opponents[j].collidingWith(opponent)) {
                 opponents[j].move(Object::FRONT);
+                opponents[i].move(Object::BACK);
             }
         }
     }

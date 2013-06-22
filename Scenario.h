@@ -4,7 +4,7 @@
 
 class Scenario {
 public:
-    Scenario(float width, float lenght);
+    Scenario(float width);
 
     void render();
 

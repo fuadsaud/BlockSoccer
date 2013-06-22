@@ -2,6 +2,7 @@
 
 #include "Includes.h"
 
+#include "Scenario.h"
 #include "Point.h"
 #include "Parallelepiped.h"
 
@@ -30,7 +31,8 @@ public:
 
     float getRadius();
 
-    bool collidingWith(Object o);
+    bool collidingWith(Object * o);
+    bool isInside(Scenario * s);
 
     float getShift();
 

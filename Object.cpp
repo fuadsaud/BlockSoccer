@@ -94,19 +94,29 @@ void Object::rotate(float amount) {
     setDirectionAngle(directionAngle + amount);
 }
 
-bool Object::collidingWith(Object o) {
+bool Object::collidingWith(Object * other) {
     Point * myCenter = getPosition();
-    Point * otherCenter = o.getPosition();
+    Point * otherCenter = other->getPosition();
 
     double distance = sqrt(pow((double) (myCenter->x - otherCenter->x), 2) +
                            pow((double) (myCenter->z - otherCenter->z), 2)
     );
 
-    if (distance <= (o.getRadius() + getRadius())) {
+    if (distance <= (other->getRadius() + getRadius())) {
         return true;
     }
 
     return false;
+}
+
+bool Object::isInside(Scenario * s) {
+    // This checks whether the is outside the field.
+    if (position->x < -50 || position->x > 50 ||
+        position->z < -25 || position->z > 25 ) {
+        return false;
+    }
+
+    return true;
 }
 
 float Object::getRadius() {
