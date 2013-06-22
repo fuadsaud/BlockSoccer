@@ -2,6 +2,7 @@
 
 #include "Includes.h"
 
+#include "Scenario.h"
 #include "Ball.h"
 #include "Person.h"
 #include "Camera.h"
@@ -23,20 +24,18 @@ public:
     void passiveMotion(int x, int y);
 
 private:
+    Game * game;
+    Scenario * scenario;
     Person * player;
     Camera * camera;
     Ball * ball;
     Person * goalKepper;
     std::vector<Person> opponents;
 
-    void drawScenario();
-
     void adversaryTeamBehavior();
     void ballBehavior();
     void collisionMonitor();
     void end(bool success);
-
-    Game * game;
 };
 
 #include "Game.h"

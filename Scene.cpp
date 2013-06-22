@@ -2,24 +2,25 @@
 
 Scene::Scene(Game *  g) {
     game = g;
+    scenario = new Scenario(100, 100);
     player = new Person(PLAYER_MOVEMENT_AMOUNT);
     camera = new Camera(player);
     ball = new Ball(player);
 
     opponents.push_back(
-        Person(new Point(10, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.5)
+        Person(new Point(10, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        Person(new Point(10, 0, -10), PLAYER_MOVEMENT_AMOUNT * 0.5)
+        Person(new Point(10, 0, -10), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        Person(new Point(10, 0, 10), PLAYER_MOVEMENT_AMOUNT * 0.5)
+        Person(new Point(10, 0, 10), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        Person(new Point(15, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.5)
+        Person(new Point(11, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
 
-    goalKepper = new Person(new Point(48, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.5);
+    goalKepper = new Person(new Point(48, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1);
 
     init(camera);
 }
@@ -38,7 +39,8 @@ void Scene::display() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    drawScenario();
+    // drawScenario();
+    scenario->render();
     goalKepper->render();
 
     for (unsigned int i = 0; i < opponents.size(); i++) {
@@ -54,100 +56,6 @@ void Scene::background() {
     adversaryTeamBehavior();
     collisionMonitor();
     glutPostRedisplay();
-}
-
-void Scene::drawScenario() {
-    float w = 100;
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glColor3f(0.14, 0.34, 0.02);
-    glBegin(GL_QUADS);
-        glVertex3f(-w / 2, 0, -w / 4);
-        glVertex3f(-w / 2, 0,  w / 4);
-        glVertex3f( w / 2, 0,  w / 4);
-        glVertex3f( w / 2, 0, -w / 4);
-
-    glEnd();
-
-    glEnable(GL_LINE_SMOOTH);
-    glLineWidth(2);
-
-    glColor3f(1, 1, 1);
-    glBegin(GL_LINE_LOOP);
-        glVertex3f(-w / 2 + 1.5, 0.01, -w / 4 + 1.5);
-        glVertex3f( w / 2 - 1.5, 0.01, -w / 4 + 1.5);
-        glVertex3f( w / 2 - 1.5, 0.01,  w / 4 - 1.5);
-        glVertex3f(-w / 2 + 1.5, 0.01,  w / 4 - 1.5);
-        glVertex3f(-w / 2 + 1.5, 0.01, -w / 4 + 1.5);
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        glVertex3f(0, 0.01, -w / 4 + 1.5);
-        glVertex3f(0, 0.01,  w / 4 - 1.5);
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        for (unsigned int i = 0; i < 360; i++) {
-            float angle = i * M_PI / 180;
-            glVertex3f(cos(angle) * 4, 0.01, sin(angle) * 4);
-        }
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        glVertex3f(-w / 2 + 1.5, 0.01, -13);
-        glVertex3f(-w / 2 + 15,  0.01, -13);
-        glVertex3f(-w / 2 + 15,  0.01,  13);
-        glVertex3f(-w / 2 + 1.5, 0.01,  13);
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        glVertex3f(-w / 2 + 1.5, 0.01, -7);
-        glVertex3f(-w / 2 + 8,   0.01, -7);
-        glVertex3f(-w / 2 + 8,   0.01,  7);
-        glVertex3f(-w / 2 + 1.5, 0.01,  7);
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        glVertex3f(w / 2 - 1.5, 0.01, -7);
-        glVertex3f(w / 2 - 8,   0.01, -7);
-        glVertex3f(w / 2 - 8,   0.01,  7);
-        glVertex3f(w / 2 -1.5,  0.01,  7);
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        glVertex3f(w / 2 - 1.5, 0.01, -13);
-        glVertex3f(w / 2 - 15,  0.01, -13);
-        glVertex3f(w / 2 - 15,  0.01,  13);
-        glVertex3f(w / 2 - 1.5, 0.01,  13);
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        for (unsigned int i = 90; i < 270; i++) {
-            float angle = i * M_PI / 180;
-            glVertex3f(cos(angle) *2 + w / 2 - 15, 0.01, sin(angle) * 4);
-        }
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-        for (unsigned int i = 270; i < 450; i++) {
-            float angle = i * M_PI / 180;
-            glVertex3f(cos(angle) * 2 - w / 2 + 15, 0.01, sin(angle) * 4);
-        }
-    glEnd();
-
-    glPushMatrix();
-        glTranslatef(w / 2 - 1.5, 0, -5);
-        glRotatef(-90, 1, 0, 0);
-        GLUquadricObj *quadObj = gluNewQuadric();
-        gluCylinder(quadObj, 0.1, 0.1, 3.5, 10, 10);
-
-        glTranslatef(0, -10, 0);
-        gluCylinder(quadObj, 0.1, 0.1, 3.5, 10, 10);
-
-        glTranslatef(0, 0, 3.4);
-        glRotatef(-90, 1, 0, 0);
-        gluCylinder(quadObj, 0.1, 0.1, 10, 10, 10);
-    glPopMatrix();
 }
 
 void Scene::keyboard(const char key, int x, int y) {
