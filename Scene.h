@@ -30,6 +30,7 @@ private:
     Ball * ball;
     Person * goalKepper;
     std::vector<Person> opponents;
+    bool freeze;
 
     void drawScenario();
 
@@ -37,6 +38,8 @@ private:
     void ballBehavior();
     void collisionMonitor();
     void end(bool success);
+    void showData();
+    void putTextInWindow(char*s, float x, float y);
 
     Game * game;
 };

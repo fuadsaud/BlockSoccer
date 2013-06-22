@@ -16,6 +16,7 @@ public:
     void endRound(bool success);
     Scene * getCurrentRound();
     int getScore();
+    int getRounds();
 
 private:
     int rounds;

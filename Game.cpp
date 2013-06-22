@@ -31,3 +31,7 @@ void Game::endRound(bool success) {
 int Game::getScore() {
     return score;
 }
+
+int Game::getRounds() {
+    return rounds;
+}

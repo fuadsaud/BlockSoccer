@@ -1,7 +1,11 @@
 #include "Scene.h"
 
+#include <stdio.h>
+#include <string.h>
+
 Scene::Scene(Game *g)
 {
+    freeze = false;
     game = g;
     player = new Person();
     camera = new Camera(player);
@@ -40,6 +44,8 @@ void Scene::display()
 
     ball->render();
     player->render();
+    showData();
+    camera->syncWithPerson();
 }
 
 void Scene::background()
@@ -171,6 +177,7 @@ void Scene::keyboard(const char key, int x, int y)
             break;
         case ' ':
             ball->detach();
+            freeze = true;
             break;
         case 'q':
         case 'Q':
@@ -197,29 +204,31 @@ void Scene::passiveMotion(int x, int y)
 
 void Scene::adversaryTeamBehavior()
 {
-    Point * p = player->getPosition();
+    if (!freeze) {
+        Point * p = player->getPosition();
 
-    srand(time(0));
-    for(unsigned int i = 0; i < opponents.size(); i++)
-    {
-        opponents[i].lookAt(p);
-        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT*0.9);
+        srand(time(0));
+        for(unsigned int i = 0; i < opponents.size(); i++)
+        {
+            opponents[i].lookAt(p);
+            opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT*0.9);
+        }
+
+        goalKepper->lookAt(p);
+
+        Point * kp = goalKepper->getPosition();
+        float move = p->z;
+
+        if (move > 5)
+        {
+            move = 5;
+        } else if (move < -5)
+        {
+            move = -5;
+        }
+
+        kp->z = move;
     }
-
-    goalKepper->lookAt(p);
-
-    Point * kp = goalKepper->getPosition();
-    float move = p->z;
-
-    if (move > 5)
-    {
-        move = 5;
-    } else if (move < -5)
-    {
-        move = -5;
-    }
-
-    kp->z = move;
 }
 
 void Scene::ballBehavior()
@@ -280,7 +289,29 @@ void Scene::collisionMonitor()
     }
 }
 
+void Scene::showData() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0,800,0,600,0,0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    char s[200];
+    sprintf(s,"Gols: %d", game->getScore());
+    putTextInWindow(s,-0.9,0.9);
+    sprintf(s,"Tentativas: %d", game->getRounds());
+    putTextInWindow(s,-0.9,0.8);
+}
+
 void Scene::end(bool success) {
     // TODO show results on the window
     game->endRound(success);
+}
+
+
+void Scene::putTextInWindow(char*s, float x, float y) {
+    glRasterPos2f(x,y);
+    glColor3f(1.0f,1.0f,1.0f);
+    for(int i =0; i< strlen(s); i++) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,s[i]);
+    }
 }
