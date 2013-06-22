@@ -34,9 +34,7 @@ void Scene::display()
     goalKepper->render();
 
     for(unsigned int i = 0; i < opponents.size(); i++)
-    {
         opponents[i].render();
-    }
 
     ball->render();
     player->render();
@@ -47,7 +45,6 @@ void Scene::background()
     ballBehavior();
     adversaryTeamBehavior();
     collisionMonitor();
-    game->getCurrentRound();
     glutPostRedisplay();
 }
 
@@ -200,10 +197,11 @@ void Scene::adversaryTeamBehavior()
     Point * p = player->getPosition();
 
     srand(time(0));
+
     for(unsigned int i = 0; i < opponents.size(); i++)
     {
         opponents[i].lookAt(p);
-        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT*0.9);
+        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT * 0.9);
     }
 
     goalKepper->lookAt(p);
@@ -211,60 +209,54 @@ void Scene::adversaryTeamBehavior()
     Point * kp = goalKepper->getPosition();
     float move = p->z;
 
-    if (move > 5)
-    {
-        move = 5;
-    } else if (move < -5)
-    {
-        move = -5;
-    }
+    if (move > 5) move = 5;
+    else if (move < -5) move = -5;
 
     kp->z = move;
 }
 
 void Scene::ballBehavior()
 {
-    if (!ball->attached())
-    {
-        ball->go();
-    }
+    if (!ball->attached()) ball->go();
 }
 
 void Scene::collisionMonitor()
 {
-    Point * p = player->getPosition();
+    Point * playerPosition = player->getPosition();
 
     std::vector<Person> allOpponents(opponents);
     allOpponents.push_back(*goalKepper);
 
-    if (p->x < -50 || p->x > 50 || p->z < -25 || p->z > 25 ) {
+    // This checks wheter the player is outside the field.
+    if (playerPosition->x < -50 || playerPosition->x > 50 ||
+        playerPosition->z < -25 || playerPosition->z > 25 )
+    {
         end(false);
     }
 
+    Point * ballPosition = ball->getPosition();
 
-    Point * ballPoint = ball->getPosition();
-    if (ballPoint->x < -50 || ballPoint->x > 50 || ballPoint->z < -25 || ballPoint->z > 25 ) {
-        if (ballPoint->x > 50 && ballPoint->z > -5 && ballPoint->z < 5) {
+    // This checks wheter the ball is outside the field.
+    if (ballPosition->x < -50 || ballPosition->x > 50 ||
+        ballPosition->z < -25 || ballPosition->z > 25 )
+    {
+        if (ballPosition->x > 50 && // Was it on the goal side of the field?
+            ballPosition->z > -5 && ballPosition->z < 5) // Was it a goal?
+        {
             end(true);
-        } else {
-            end(false);
         }
+        else end(false);
     }
 
     for(unsigned int i = 0; i < allOpponents.size(); i++)
     {
         if (player->collidingWith((Object) allOpponents[i]))
-        {
             end(false);
-        }
     }
 
     for(unsigned int i = 0; i < allOpponents.size(); i++)
     {
-        if (ball->collidingWith((Object) allOpponents[i]))
-        {
-            end(false);
-        }
+        if (ball->collidingWith((Object) allOpponents[i])) end(false);
     }
 
     for(unsigned int i = 0; i < opponents.size() - 1; i++)
@@ -273,8 +265,8 @@ void Scene::collisionMonitor()
         {
             if (opponents[i].collidingWith((Object) opponents[j]))
             {
-                opponents[i].move(Object::BACK, PLAYER_MOVEMENT_AMOUNT*0.9);
-                opponents[j].move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT*0.9);
+                opponents[i].move(Object::BACK, PLAYER_MOVEMENT_AMOUNT * 0.9);
+                opponents[j].move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT * 0.9);
             }
         }
     }

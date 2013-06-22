@@ -17,15 +17,11 @@ Scene * Game::getCurrentRound()
 
 void Game::endRound(bool success) {
     rounds ++;
-    if (success) {
-        score ++;
-    }
-    if (rounds == MAX_ROUNDS) {
-        // TODO game over
-        exit(0);
-    } else {
-        nextRound();
-    }
+
+    if (success) score ++;
+
+    if (rounds == MAX_ROUNDS) exit(0); // TODO game over
+    else nextRound();
 }
 
 int Game::getScore() {
