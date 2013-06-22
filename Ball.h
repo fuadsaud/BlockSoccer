@@ -9,9 +9,9 @@
 class Ball : public Object {
 public:
     Ball();
-    Ball(Person * p);
+    Ball(Person* p);
 
-    void attach(Person * p);
+    void attach(Person* p);
     void detach();
     bool isAttached();
 
@@ -20,5 +20,5 @@ public:
     void render();
 
 private:
-    Person * player;
+    Person* player;
 };

@@ -104,7 +104,7 @@ void Scenario::renderGoal() {
     glPushMatrix();
         glTranslatef(width / 2 - 1.5, 0, -5);
         glRotatef(-90, 1, 0, 0);
-        GLUquadricObj * quadObj = gluNewQuadric();
+        GLUquadricObj* quadObj = gluNewQuadric();
         gluCylinder(quadObj, 0.1, 0.1, 3.5, 10, 10);
 
         glTranslatef(0, -10, 0);

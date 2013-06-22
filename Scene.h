@@ -13,9 +13,9 @@ class Scene {
 public:
     const static float PLAYER_MOVEMENT_AMOUNT = 1;
 
-    Scene(Game * g);
+    Scene(Game* g);
 
-    void init(Camera * c);
+    void init(Camera* c);
     void display();
 
     void background();
@@ -24,12 +24,12 @@ public:
     void passiveMotion(int x, int y);
 
 private:
-    Game * game;
-    Scenario * scenario;
-    Person * player;
-    Camera * camera;
-    Ball * ball;
-    Person * goalKepper;
+    Game* game;
+    Scenario* scenario;
+    Person* player;
+    Camera* camera;
+    Ball* ball;
+    Person* goalKepper;
     std::vector<Person> opponents;
 
     void adversaryTeamBehavior();

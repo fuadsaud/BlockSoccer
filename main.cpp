@@ -10,7 +10,7 @@ void background(int interval);
 void keyboard(unsigned char key, int x, int y);
 void passiveMotion(int x, int y);
 
-Game * game = new Game();
+Game* game = new Game();
 
 int main(int argc, char *argv[]) {
     glutInit(&argc, argv);

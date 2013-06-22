@@ -1,6 +1,6 @@
 #include "Scene.h"
 
-Scene::Scene(Game *  g) {
+Scene::Scene(Game*  g) {
     game = g;
     scenario = new Scenario(100);
     player = new Person(PLAYER_MOVEMENT_AMOUNT);
@@ -25,7 +25,7 @@ Scene::Scene(Game *  g) {
     init(camera);
 }
 
-void Scene::init(Camera * camera) {
+void Scene::init(Camera* camera) {
     glEnable(GL_DEPTH_TEST);   // Enable depth testing for z-culling
     glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
     glShadeModel(GL_SMOOTH);   // Enable smooth shading
@@ -101,7 +101,7 @@ void Scene::passiveMotion(int x, int y) {
 }
 
 void Scene::adversaryTeamBehavior() {
-    Point * playerPosition = player->getPosition();
+    Point* playerPosition = player->getPosition();
 
     srand(time(0));
 
@@ -112,7 +112,7 @@ void Scene::adversaryTeamBehavior() {
 
     goalKepper->lookAt(playerPosition);
 
-    Point * kp = goalKepper->getPosition();
+    Point* kp = goalKepper->getPosition();
     float move = playerPosition->z;
 
     if (move > 5) move = 5;
@@ -126,7 +126,7 @@ void Scene::ballBehavior() {
 }
 
 void Scene::collisionMonitor() {
-    Point * ballPosition = ball->getPosition();
+    Point* ballPosition = ball->getPosition();
 
     std::vector<Person> allOpponents(opponents);
     allOpponents.push_back(*goalKepper);
@@ -145,7 +145,7 @@ void Scene::collisionMonitor() {
     }
 
     for (unsigned int i = 0; i < allOpponents.size(); i++) {
-        Object * opponent = &((Object) allOpponents[i]);
+        Object* opponent = &((Object) allOpponents[i]);
 
         if (player->collidingWith(opponent) ||
             ball->collidingWith(opponent)) {

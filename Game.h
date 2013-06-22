@@ -14,12 +14,12 @@ public:
     void nextRound();
     void endRound(bool success);
 
-    Scene * getCurrentRound();
+    Scene* getCurrentRound();
     int getScore();
 
 private:
     int rounds;
     int score;
 
-    Scene * currentRound;
+    Scene* currentRound;
 };
