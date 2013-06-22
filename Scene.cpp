@@ -1,7 +1,6 @@
 #include "Scene.h"
 
-Scene::Scene(Game *g)
-{
+Scene::Scene(Game * g) {
     game = g;
     player = new Person();
     camera = new Camera(player);
@@ -16,8 +15,7 @@ Scene::Scene(Game *g)
     init(camera);
 }
 
-void Scene::init(Camera * camera)
-{
+void Scene::init(Camera * camera) {
     glEnable(GL_DEPTH_TEST);   // Enable depth testing for z-culling
     glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
     glShadeModel(GL_SMOOTH);   // Enable smooth shading
@@ -27,31 +25,29 @@ void Scene::init(Camera * camera)
     camera->syncWithPerson();
 }
 
-void Scene::display()
-{
+void Scene::display() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     drawScenario();
     goalKepper->render();
 
-    for(unsigned int i = 0; i < opponents.size(); i++)
+    for (unsigned int i = 0; i < opponents.size(); i++) {
         opponents[i].render();
+    }
 
     ball->render();
     player->render();
 }
 
-void Scene::background()
-{
+void Scene::background() {
     ballBehavior();
     adversaryTeamBehavior();
     collisionMonitor();
     glutPostRedisplay();
 }
 
-void Scene::drawScenario()
-{
+void Scene::drawScenario() {
     float w = 100;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -82,8 +78,7 @@ void Scene::drawScenario()
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-        for(unsigned int i = 0; i < 360; i++)
-        {
+        for (unsigned int i = 0; i < 360; i++) {
             float angle = i * M_PI / 180;
             glVertex3f(cos(angle) * 4, 0.01, sin(angle) * 4);
         }
@@ -118,16 +113,14 @@ void Scene::drawScenario()
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-        for(unsigned int i = 90; i < 270; i++)
-        {
+        for (unsigned int i = 90; i < 270; i++) {
             float angle = i * M_PI / 180;
             glVertex3f(cos(angle) *2 + w / 2 - 15, 0.01, sin(angle) * 4);
         }
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-        for(unsigned int i = 270; i < 450; i++)
-        {
+        for (unsigned int i = 270; i < 450; i++) {
             float angle = i * M_PI / 180;
             glVertex3f(cos(angle) * 2 - w / 2 + 15, 0.01, sin(angle) * 4);
         }
@@ -148,10 +141,8 @@ void Scene::drawScenario()
     glPopMatrix();
 }
 
-void Scene::keyboard(const char key, int x, int y)
-{
-    switch (key)
-    {
+void Scene::keyboard(const char key, int x, int y) {
+    switch (key) {
         case 'w':
         case 'W':
             player->move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT);
@@ -179,12 +170,10 @@ void Scene::keyboard(const char key, int x, int y)
     camera->syncWithPerson();
 }
 
-void Scene::passiveMotion(int x, int y)
-{
+void Scene::passiveMotion(int x, int y) {
     float height = 800, width = 600;
 
-    if (x != width / 2)
-    {
+    if (x != width / 2) {
         float distance = (x - width / 2) / 10;
 
         player->rotate(distance);
@@ -194,22 +183,20 @@ void Scene::passiveMotion(int x, int y)
     }
 }
 
-void Scene::adversaryTeamBehavior()
-{
-    Point * p = player->getPosition();
+void Scene::adversaryTeamBehavior() {
+    Point * playerPosition = player->getPosition();
 
     srand(time(0));
 
-    for(unsigned int i = 0; i < opponents.size(); i++)
-    {
-        opponents[i].lookAt(p);
+    for (unsigned int i = 0; i < opponents.size(); i++) {
+        opponents[i].lookAt(playerPosition);
         opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT * 0.9);
     }
 
-    goalKepper->lookAt(p);
+    goalKepper->lookAt(playerPosition);
 
     Point * kp = goalKepper->getPosition();
-    float move = p->z;
+    float move = playerPosition->z;
 
     if (move > 5) move = 5;
     else if (move < -5) move = -5;
@@ -217,13 +204,11 @@ void Scene::adversaryTeamBehavior()
     kp->z = move;
 }
 
-void Scene::ballBehavior()
-{
-    if (!ball->attached()) ball->go();
+void Scene::ballBehavior() {
+    if (!ball->isAttached()) ball->go();
 }
 
-void Scene::collisionMonitor()
-{
+void Scene::collisionMonitor() {
     Point * playerPosition = player->getPosition();
 
     std::vector<Person> allOpponents(opponents);
@@ -231,8 +216,7 @@ void Scene::collisionMonitor()
 
     // This checks wheter the player is outside the field.
     if (playerPosition->x < -50 || playerPosition->x > 50 ||
-        playerPosition->z < -25 || playerPosition->z > 25 )
-    {
+        playerPosition->z < -25 || playerPosition->z > 25 ) {
         end(false);
     }
 
@@ -240,33 +224,26 @@ void Scene::collisionMonitor()
 
     // This checks wheter the ball is outside the field.
     if (ballPosition->x < -50 || ballPosition->x > 50 ||
-        ballPosition->z < -25 || ballPosition->z > 25 )
-    {
+        ballPosition->z < -25 || ballPosition->z > 25 ) {
         if (ballPosition->x > 50 && // Was it on the goal side of the field?
-            ballPosition->z > -5 && ballPosition->z < 5) // Was it a goal?
-        {
+            ballPosition->z > -5 && ballPosition->z < 5) { // Was it a goal?
             end(true);
         }
         else end(false);
     }
 
-    for(unsigned int i = 0; i < allOpponents.size(); i++)
-    {
+    for (unsigned int i = 0; i < allOpponents.size(); i++) {
         if (player->collidingWith((Object) allOpponents[i]))
             end(false);
     }
 
-    for(unsigned int i = 0; i < allOpponents.size(); i++)
-    {
+    for (unsigned int i = 0; i < allOpponents.size(); i++) {
         if (ball->collidingWith((Object) allOpponents[i])) end(false);
     }
 
-    for(unsigned int i = 0; i < opponents.size() - 1; i++)
-    {
-        for(unsigned int j = i + 1; j < opponents.size(); j++)
-        {
-            if (opponents[i].collidingWith((Object) opponents[j]))
-            {
+    for (unsigned int i = 0; i < opponents.size() - 1; i++) {
+        for (unsigned int j = i + 1; j < opponents.size(); j++) {
+            if (opponents[i].collidingWith((Object) opponents[j])) {
                 opponents[i].move(Object::BACK, PLAYER_MOVEMENT_AMOUNT * 0.9);
                 opponents[j].move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT * 0.9);
             }

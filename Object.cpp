@@ -1,38 +1,27 @@
 #include "Object.h"
-#include <iostream>
 
-Object::Object()
-{
+Object::Object() {
     Object::position = new Point(0, 0, 0);
     Object::setDirectionAngle(0);
 }
 
-Object::Object(Point * initialPosition)
-{
+Object::Object(Point * initialPosition) {
     Object::position = initialPosition;
     Object::setDirectionAngle(0);
 }
 
-float Object::getDirectionAngle()
-{
+float Object::getDirectionAngle() {
     return directionAngle;
 }
 
-void Object::setDirectionAngle(float angle)
-{
-    if (angle < 0)
-    {
-        angle = 360 + angle;
-    } else if (angle > 360)
-    {
-        angle = angle - 360;
-    }
+void Object::setDirectionAngle(float angle) {
+    if (angle < 0) angle = 360 + angle;
+    else if (angle > 360) angle = angle - 360;
 
     directionAngle = angle;
 }
 
-Point * Object::getPosition()
-{
+Point * Object::getPosition() {
     return position;
 }
 
@@ -41,10 +30,7 @@ void Object::lookAt(Point * to)
     Point direction(position->x + 10, 0, position->z);
     Point * p = new Point(to->x - position->x, 0, to->z - position->z);
 
-    if (p->z <= 0)
-    {
-        direction.z *= -1;
-    }
+    if (p->z <= 0) direction.z *= -1;
 
     float pModule = sqrt(pow(p->x, 2) + pow(p->z, 2));
     float dModule = sqrt(pow(direction.x, 2) + pow(direction.z, 2));
@@ -52,31 +38,24 @@ void Object::lookAt(Point * to)
     float product = p->x * direction.x + p->z + direction.z;
     float productModule = pModule * dModule;
 
-    if (productModule != 0)
-    {
+    if (productModule != 0) {
         float aux = product / productModule;
 
-        if ( aux >= -1 && aux <= 1)
-        {
+        if ( aux >= -1 && aux <= 1) {
             float angle = acos(aux) * 180 / M_PI;
 
-            if (p->z <= 0)
-            {
-                angle = 360 - angle;
-            }
+            if (p->z <= 0) angle = 360 - angle;
 
             setDirectionAngle(angle);
         }
     }
 }
 
-void Object::move(const int direction, float amount)
-{
+void Object::move(const int direction, float amount) {
     Point p(0, 0, 0);
     float radAngle = getDirectionAngle() * M_PI / 180;
 
-    switch (direction)
-    {
+    switch (direction) {
         case Object::FRONT:
             p.x = cos(radAngle) * amount;
             p.z = sin(radAngle) * amount;
@@ -100,29 +79,25 @@ void Object::move(const int direction, float amount)
     position = p + position;
 }
 
-void Object::rotate(float amount)
-{
+void Object::rotate(float amount) {
     setDirectionAngle(directionAngle + amount);
 }
 
-bool Object::collidingWith(Object o)
-{
-    bool result = false;
+bool Object::collidingWith(Object o) {
     Point * myCenter = getPosition();
     Point * otherCenter = o.getPosition();
+
     double distance = sqrt(pow((double) (myCenter->x - otherCenter->x), 2) +
                            pow((double) (myCenter->z - otherCenter->z), 2)
     );
 
-    if (distance <= (o.getRadius() + getRadius()))
-    {
-        result = true;
+    if (distance <= (o.getRadius() + getRadius())) {
+        return true;
     }
 
-    return result;
+    return false;
 }
 
-float Object::getRadius()
-{
+float Object::getRadius() {
     return radius;
 }

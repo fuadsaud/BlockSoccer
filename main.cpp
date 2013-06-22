@@ -12,8 +12,7 @@ void passiveMotion(int x, int y);
 
 Game * game = new Game();
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
@@ -33,8 +32,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void init()
-{
+void init() {
     glClearColor(0, 0, 0, 0);
     glClearDepth(1.0);
 
@@ -44,26 +42,22 @@ void init()
     glLoadIdentity();
 }
 
-void display()
-{
+void display() {
     game->getCurrentRound()->display();
 
     glutSwapBuffers();
     glFlush();
 }
 
-void keyboard(unsigned char key, int x, int y)
-{
+void keyboard(unsigned char key, int x, int y) {
     game->getCurrentRound()->keyboard(key, x, y);
 }
 
-void passiveMotion(int x, int y)
-{
+void passiveMotion(int x, int y) {
     game->getCurrentRound()->passiveMotion(x, y);
 }
 
-void background(int interval)
-{
+void background(int interval) {
     game->getCurrentRound()->background();
 
     glutTimerFunc(interval, background, interval);

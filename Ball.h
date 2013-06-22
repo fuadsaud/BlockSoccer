@@ -6,15 +6,14 @@
 #include "Object.h"
 #include "Point.h"
 
-class Ball : public Object
-{
+class Ball : public Object {
 public:
     Ball();
     Ball(Person * p);
 
     void attach(Person * p);
-    bool attached();
     void detach();
+    bool isAttached();
 
     void go();
 

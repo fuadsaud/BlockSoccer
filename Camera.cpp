@@ -1,12 +1,10 @@
 #include "Camera.h"
 
-Camera::Camera(Person * p)
-{
+Camera::Camera(Person * p) {
     person = p;
 }
 
-void Camera::syncWithPerson()
-{
+void Camera::syncWithPerson() {
     Point * p = person->getPosition();
     float angle = person->getDirectionAngle();
 
@@ -23,17 +21,11 @@ void Camera::syncWithPerson()
     float directionY = p->y + 2;
     float directionZ = p->z;
 
-//    std::cerr << "Point(" << eyeX << ", " << eyeY << ", " << eyeZ << ")" << std::endl;
-//    std::cerr << "Point(" << directionX << ", " << directionY << ", " << directionZ << ")" << std::endl;
-
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     gluPerspective(60, 800 / (double) 600, 0.2, 200);
     gluLookAt(eyeX, eyeY, eyeZ,  directionX, directionY, directionZ,  0, 1, 0);
-    // gluLookAt(0, 3.5, -3,
-    //           0,   2,  2,
-    //           0,   1,  0);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

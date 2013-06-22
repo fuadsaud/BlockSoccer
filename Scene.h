@@ -8,8 +8,7 @@
 
 class Game;
 
-class Scene
-{
+class Scene {
 public:
     const static float PLAYER_MOVEMENT_AMOUNT = 0.11;
 

@@ -6,8 +6,7 @@
 #include "Object.h"
 #include "Parallelepiped.h"
 
-class Person : public Object
-{
+class Person : public Object {
 public:
     Person();
     Person(Point * initialPosition);

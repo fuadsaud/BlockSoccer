@@ -1,14 +1,12 @@
 #include "Point.h"
 
-Point::Point()
-{
+Point::Point() {
     Point::x = 0;
     Point::y = 0;
     Point::z = 0;
 }
 
-Point::Point(float x, float y, float z)
-{
+Point::Point(float x, float y, float z) {
     Point::x = x;
     Point::y = y;
     Point::z = z;

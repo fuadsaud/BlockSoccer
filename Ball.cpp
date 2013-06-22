@@ -1,32 +1,24 @@
 #include "Ball.h"
 
-Ball::Ball()
-{
+Ball::Ball() {
     position = new Point();
     radius = 0.2;
 }
 
-Ball::Ball(Person * p)
-{
+Ball::Ball(Person * p) {
     attach(p);
     position = new Point();
     radius = 0.2;
 }
 
-void Ball::go()
-{
-    if (!attached())
-    {
-        move(Object::FRONT, 1);
-    }
+void Ball::go() {
+    if (!isAttached()) move(Object::FRONT, 1);
 }
 
-void Ball::render()
-{
+void Ball::render() {
     glPushMatrix();
 
-        if (attached())
-        {
+        if (isAttached()) {
             setDirectionAngle(player->getDirectionAngle());
 
             Point * playerPosition = player->getPosition();
@@ -44,17 +36,14 @@ void Ball::render()
     glPopMatrix();
 }
 
-void Ball::attach(Person * p)
-{
+void Ball::attach(Person * p) {
     player = p;
 }
 
-bool Ball::attached()
-{
+bool Ball::isAttached() {
     return player != 0;
 }
 
-void Ball::detach()
-{
+void Ball::detach() {
     player = 0;
 }

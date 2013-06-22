@@ -2,13 +2,11 @@
 
 Game::Game() { }
 
-void Game::nextRound()
-{
-    currentRound = new Scene(this);
+void Game::nextRound() {
+ currentRound = new Scene(this);
 }
 
-Scene * Game::getCurrentRound()
-{
+Scene * Game::getCurrentRound() {
     return currentRound;
 }
 

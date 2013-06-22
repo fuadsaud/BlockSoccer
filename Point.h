@@ -2,8 +2,7 @@
 
 #include "Includes.h"
 
-class Point
-{
+class Point {
 public:
     float x;
     float y;

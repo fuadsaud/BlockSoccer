@@ -5,8 +5,7 @@
 #include "Point.h"
 #include "Parallelepiped.h"
 
-class Object
-{
+class Object {
 public:
     const static int FRONT = 1;
     const static int BACK  = 2;

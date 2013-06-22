@@ -4,8 +4,7 @@
 
 #include "Scene.h"
 
-class Game
-{
+class Game {
 public:
     const static int MAX_ROUNDS = 3;
 
@@ -14,6 +13,7 @@ public:
     void start();
     void nextRound();
     void endRound(bool success);
+
     Scene * getCurrentRound();
     int getScore();
 

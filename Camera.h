@@ -4,8 +4,7 @@
 
 #include "Person.h"
 
-class Camera
-{
+class Camera {
 public:
     Person * person;
 
