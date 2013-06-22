@@ -12,9 +12,11 @@ Scene::Scene(Game *g)
     opponents.push_back(Person(new Point(15, 0,   0)));
 
     goalKepper = new Person(new Point(48, 0, 0));
+
+    init(camera);
 }
 
-void Scene::init()
+void Scene::init(Camera * camera)
 {
     glEnable(GL_DEPTH_TEST);   // Enable depth testing for z-culling
     glDepthFunc(GL_LEQUAL);    // Set the type of depth-test

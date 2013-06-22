@@ -6,7 +6,7 @@
 
 void init();
 void display();
-void background();
+void background(int interval);
 void keyboard(unsigned char key, int x, int y);
 void passiveMotion(int x, int y);
 
@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
 
     init();
 
-    glutIdleFunc(background);
+    game->nextRound();
+    background(50);
 
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
@@ -38,8 +39,6 @@ void init()
     glClearDepth(1.0);
 
     glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_WIDTH));
-
-    game->getCurrentRound()->init();
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -63,8 +62,9 @@ void passiveMotion(int x, int y)
     game->getCurrentRound()->passiveMotion(x, y);
 }
 
-void background()
+void background(int interval)
 {
     game->getCurrentRound()->background();
 
+    glutTimerFunc(interval, background, interval);
 }

@@ -1,9 +1,6 @@
 #include "Game.h"
 
-Game::Game()
-{
-    currentRound = new Scene(this);
-}
+Game::Game() { }
 
 void Game::nextRound()
 {

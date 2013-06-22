@@ -13,9 +13,9 @@ class Scene
 public:
     const static float PLAYER_MOVEMENT_AMOUNT = 0.11;
 
-    Scene(Game* g);
+    Scene(Game * g);
 
-    void init();
+    void init(Camera * c);
     void display();
 
     void background();
