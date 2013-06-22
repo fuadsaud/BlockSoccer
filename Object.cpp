@@ -1,13 +1,15 @@
 #include "Object.h"
 
-Object::Object() {
-    Object::position = new Point(0, 0, 0);
-    Object::setDirectionAngle(0);
+Object::Object(float m) {
+    position = new Point(0, 0, 0);
+    setDirectionAngle(0);
+    movementAmount = m;
 }
 
-Object::Object(Point * initialPosition) {
-    Object::position = initialPosition;
-    Object::setDirectionAngle(0);
+Object::Object(Point * initialPosition, float m) {
+    position = initialPosition;
+    setDirectionAngle(0);
+    movementAmount = m;
 }
 
 float Object::getDirectionAngle() {
@@ -51,30 +53,39 @@ void Object::lookAt(Point * to)
     }
 }
 
-void Object::move(const int direction, float amount) {
+void Object::move(const int direction) {
+    std::cout << "auhsaus" << std::endl;
+    move(direction, movementAmount);
+}
+
+void Object::move(const int direction, float amount = 0) {
     Point p(0, 0, 0);
     float radAngle = getDirectionAngle() * M_PI / 180;
+    float x, z;
 
     switch (direction) {
         case Object::FRONT:
-            p.x = cos(radAngle) * amount;
-            p.z = sin(radAngle) * amount;
+            x = cos(radAngle);
+            z = sin(radAngle);
             break;
         case Object::BACK:
-            p.x -= cos(radAngle) * amount;
-            p.z -= sin(radAngle) * amount;
+            x = -cos(radAngle);
+            z = -sin(radAngle);
             break;
         case Object::LEFT:
             radAngle += M_PI / 2;
-            p.x -= cos(radAngle) * amount;
-            p.z -= sin(radAngle) * amount;
+            x = -cos(radAngle);
+            z = -sin(radAngle);
             break;
         case Object::RIGHT:
             radAngle -= M_PI / 2;
-            p.x -= cos(radAngle) * amount;
-            p.z -= sin(radAngle) * amount;
+            x = -cos(radAngle);
+            z = -sin(radAngle);
             break;
     }
+
+    p.x += x * amount;
+    p.z += z * amount;
 
     position = p + position;
 }

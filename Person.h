@@ -8,8 +8,8 @@
 
 class Person : public Object {
 public:
-    Person();
-    Person(Point * initialPosition);
+    Person(float m = Object::DEFAULT_MOVEMENT_AMOUNT);
+    Person(Point * initialPosition, float m = Object::DEFAULT_MOVEMENT_AMOUNT);
 
     void render();
 

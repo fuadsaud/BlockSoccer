@@ -12,7 +12,7 @@ Ball::Ball(Person * p) {
 }
 
 void Ball::go() {
-    if (!isAttached()) move(Object::FRONT, 1);
+    if (!isAttached()) move(Object::FRONT);
 }
 
 void Ball::render() {

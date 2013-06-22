@@ -12,8 +12,10 @@ public:
     const static int LEFT  = 3;
     const static int RIGHT = 4;
 
-    Object();
-    Object(Point * initialPosition);
+    const static float DEFAULT_MOVEMENT_AMOUNT = 1;
+
+    Object(float m = DEFAULT_MOVEMENT_AMOUNT);
+    Object(Point * initialPositio, float m = DEFAULT_MOVEMENT_AMOUNT);
 
     float getDirectionAngle();
     Point * getPosition();
@@ -21,6 +23,7 @@ public:
     void lookAt(Point* to);
 
     void rotate(float amount);
+    void move(const int direction);
     void move(const int direction, float amount);
 
     void render();
@@ -34,10 +37,10 @@ public:
 protected:
     void setDirectionAngle(float angle);
 
-
     Point * position;
 
-    float directionAngle;
+    float movementAmount;
 
+    float directionAngle;
     float radius;
 };

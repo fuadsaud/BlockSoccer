@@ -1,16 +1,25 @@
 #include "Scene.h"
 
-Scene::Scene(Game * g) {
+Scene::Scene(Game *  g) {
     game = g;
-    player = new Person();
+    player = new Person(PLAYER_MOVEMENT_AMOUNT);
     camera = new Camera(player);
     ball = new Ball(player);
-    opponents.push_back(Person(new Point(10, 0,   0)));
-    opponents.push_back(Person(new Point(10, 0, -10)));
-    opponents.push_back(Person(new Point(10, 0,  10)));
-    opponents.push_back(Person(new Point(15, 0,   0)));
 
-    goalKepper = new Person(new Point(48, 0, 0));
+    opponents.push_back(
+        Person(new Point(10, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.5)
+    );
+    opponents.push_back(
+        Person(new Point(10, 0, -10), PLAYER_MOVEMENT_AMOUNT * 0.5)
+    );
+    opponents.push_back(
+        Person(new Point(10, 0, 10), PLAYER_MOVEMENT_AMOUNT * 0.5)
+    );
+    opponents.push_back(
+        Person(new Point(15, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.5)
+    );
+
+    goalKepper = new Person(new Point(48, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.5);
 
     init(camera);
 }
@@ -145,19 +154,19 @@ void Scene::keyboard(const char key, int x, int y) {
     switch (key) {
         case 'w':
         case 'W':
-            player->move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::FRONT);
             break;
         case 's':
         case 'S':
-            player->move(Object::BACK, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::BACK);
             break;
         case 'a':
         case 'A':
-            player->move(Object::LEFT, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::LEFT);
             break;
         case 'd':
         case 'D':
-            player->move(Object::RIGHT, PLAYER_MOVEMENT_AMOUNT);
+            player->move(Object::RIGHT);
             break;
         case ' ':
             ball->detach();
@@ -190,7 +199,7 @@ void Scene::adversaryTeamBehavior() {
 
     for (unsigned int i = 0; i < opponents.size(); i++) {
         opponents[i].lookAt(playerPosition);
-        opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT * 0.9);
+        opponents[i].move(Person::FRONT);
     }
 
     goalKepper->lookAt(playerPosition);
@@ -244,8 +253,8 @@ void Scene::collisionMonitor() {
     for (unsigned int i = 0; i < opponents.size() - 1; i++) {
         for (unsigned int j = i + 1; j < opponents.size(); j++) {
             if (opponents[i].collidingWith((Object) opponents[j])) {
-                opponents[i].move(Object::BACK, PLAYER_MOVEMENT_AMOUNT * 0.9);
-                opponents[j].move(Object::FRONT, PLAYER_MOVEMENT_AMOUNT * 0.9);
+                opponents[i].move(Object::BACK);
+                opponents[j].move(Object::FRONT);
             }
         }
     }

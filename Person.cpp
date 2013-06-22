@@ -1,15 +1,17 @@
 #include "Person.h"
 
-Person::Person() {
-    Person::position = new Point(0, 0, 0);
-    Person::setDirectionAngle(0);
+Person::Person(float m) {
+    position = new Point(0, 0, 0);
+    setDirectionAngle(0);
     radius = 0.5;
+    movementAmount = m;
 }
 
-Person::Person(Point * initialPosition) {
-    Person::position = initialPosition;
-    Person::setDirectionAngle(0);
+Person::Person(Point * initialPosition, float m) {
+    position = initialPosition;
+    setDirectionAngle(0);
     radius = 0.5;
+    movementAmount = m;
 }
 
 void Person::render() {

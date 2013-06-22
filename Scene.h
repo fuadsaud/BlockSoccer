@@ -10,7 +10,7 @@ class Game;
 
 class Scene {
 public:
-    const static float PLAYER_MOVEMENT_AMOUNT = 0.11;
+    const static float PLAYER_MOVEMENT_AMOUNT = 1;
 
     Scene(Game * g);
 
@@ -21,7 +21,6 @@ public:
 
     void keyboard(const char key, int x, int y);
     void passiveMotion(int x, int y);
-
 
 private:
     Person * player;
