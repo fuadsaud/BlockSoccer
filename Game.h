@@ -16,6 +16,7 @@ public:
 
     Scene* getCurrentRound();
     int getScore();
+    int getRounds();
 
 private:
     int rounds;

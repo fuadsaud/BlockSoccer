@@ -1,6 +1,8 @@
 #include "Game.h"
 
-Game::Game() { }
+Game::Game() {
+    score = rounds = 0;
+}
 
 void Game::nextRound() {
  currentRound = new Scene(this);
@@ -11,9 +13,9 @@ Scene* Game::getCurrentRound() {
 }
 
 void Game::endRound(bool success) {
-    rounds ++;
+    rounds++;
 
-    if (success) score ++;
+    if (success) score++;
 
     if (rounds == MAX_ROUNDS) exit(0); // TODO game over
     else nextRound();
@@ -21,4 +23,8 @@ void Game::endRound(bool success) {
 
 int Game::getScore() {
     return score;
+}
+
+int Game::getRounds() {
+    return rounds;
 }

@@ -4,7 +4,7 @@
 #include "Camera.h"
 #include "Game.h"
 
-void init();
+void initOpenGL();
 void display();
 void background(int interval);
 void keyboard(unsigned char key, int x, int y);
@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     glutInitWindowPosition(0, 0);
     glutCreateWindow("BlockSoccer");
 
-    init();
+    initOpenGL();
 
     game->nextRound();
     background(50);
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-void init() {
+void initOpenGL() {
     glClearColor(0, 0, 0, 0);
     glClearDepth(1.0);
 

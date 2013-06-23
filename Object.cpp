@@ -54,11 +54,10 @@ void Object::lookAt(Point * to)
 }
 
 void Object::move(const int direction) {
-    std::cout << "auhsaus" << std::endl;
     move(direction, movementAmount);
 }
 
-void Object::move(const int direction, float amount = 0) {
+void Object::move(const int direction, float amount) {
     Point p(0, 0, 0);
     float radAngle = getDirectionAngle() * M_PI / 180;
     float x, z;

@@ -32,6 +32,10 @@ private:
     Person* goalKepper;
     std::vector<Person> opponents;
 
+    bool finished;
+
+    void drawHUD();
+
     void adversaryTeamBehavior();
     void ballBehavior();
     void collisionMonitor();

@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene(Game*  g) {
+    finished = false;
     game = g;
     scenario = new Scenario(100);
     player = new Person(PLAYER_MOVEMENT_AMOUNT);
@@ -39,7 +40,8 @@ void Scene::display() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // drawScenario();
+    drawHUD();
+
     scenario->render();
     goalKepper->render();
 
@@ -51,7 +53,15 @@ void Scene::display() {
     player->render();
 }
 
+void Scene::drawHUD() {
+    std::cout << game->getScore() << " GOALS • "
+              << game->getRounds() << " / " << Game::MAX_ROUNDS
+              << std::endl;
+}
+
 void Scene::background() {
+    if (finished) return;
+
     ballBehavior();
     adversaryTeamBehavior();
     collisionMonitor();
@@ -59,6 +69,11 @@ void Scene::background() {
 }
 
 void Scene::keyboard(const char key, int x, int y) {
+    if (finished) {
+        end(false);
+        return;
+    }
+
     switch (key) {
         case 'w':
         case 'W':
@@ -88,7 +103,8 @@ void Scene::keyboard(const char key, int x, int y) {
 }
 
 void Scene::passiveMotion(int x, int y) {
-    float height = 800, width = 600;
+    float height = glutGet(GLUT_WINDOW_HEIGHT),
+          width = glutGet(GLUT_WINDOW_WIDTH);
 
     if (x != width / 2) {
         float distance = (x - width / 2) / 10;
@@ -147,7 +163,7 @@ void Scene::collisionMonitor() {
     for (unsigned int i = 0; i < allOpponents.size(); i++) {
         Object* opponent = &((Object) allOpponents[i]);
 
-        if (player->collidingWith(opponent) ||
+        if (//player->collidingWith(opponent) ||
             ball->collidingWith(opponent)) {
             end(false);
         }
@@ -163,5 +179,30 @@ void Scene::collisionMonitor() {
 
 void Scene::end(bool success) {
     // TODO show results on the window
+    if (!finished) {
+        finished = true;
+
+        // glClear(GL_DEPTH_BUFFER_BIT);
+        // glMatrixMode(GL_PROJECTION);
+        // glLoadIdentity();
+        // glOrtho(0, glutGet(GLUT_WINDOW_WIDTH),
+        //         0, glutGet(GLUT_WINDOW_WIDTH),
+        //         0, 1);
+
+        // glRasterPos2f(300, 300);
+        // char* string = "huehuebr";
+        // unsigned int len = (int) strlen(string);
+        // for (unsigned int i = 0; i < len; i++) {
+        //     std::cout << string[i] << std::endl;
+        //     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]);
+        // }
+
+        // glutPostRedisplay();
+
+        std::cout << (success ? "GOAL!!!" : "BOOM!!! HAHA") << std::endl;
+
+        sleep(3);
+    }
+
     game->endRound(success);
 }
