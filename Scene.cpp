@@ -7,6 +7,7 @@
 Scene::Scene(Game *g)
 {
     freeze = false;
+    showFinalMessage = false;
     game = g;
     player = new Person();
     camera = new Camera(player);
