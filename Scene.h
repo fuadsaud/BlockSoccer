@@ -30,7 +30,7 @@ private:
     Camera* camera;
     Ball* ball;
     Person* goalKepper;
-    std::vector<Person> opponents;
+    std::vector<Person*> opponents;
 
     bool finished;
 

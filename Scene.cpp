@@ -9,16 +9,16 @@ Scene::Scene(Game*  g) {
     ball = new Ball(player);
 
     opponents.push_back(
-        Person(new Point(10, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(10, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        Person(new Point(10, 0, -10), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(10, 0, -10), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        Person(new Point(10, 0, 10), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(10, 0, 10), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        Person(new Point(11, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(11, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
 
     goalKepper = new Person(new Point(48, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1);
@@ -46,7 +46,7 @@ void Scene::display() {
     goalKepper->render();
 
     for (unsigned int i = 0; i < opponents.size(); i++) {
-        opponents[i].render();
+        opponents[i]->render();
     }
 
     ball->render();
@@ -122,8 +122,8 @@ void Scene::adversaryTeamBehavior() {
     srand(time(0));
 
     for (unsigned int i = 0; i < opponents.size(); i++) {
-        opponents[i].lookAt(playerPosition);
-        opponents[i].move(Person::FRONT);
+        opponents[i]->lookAt(playerPosition);
+        opponents[i]->move(Person::FRONT);
     }
 
     goalKepper->lookAt(playerPosition);
@@ -144,8 +144,8 @@ void Scene::ballBehavior() {
 void Scene::collisionMonitor() {
     Point* ballPosition = ball->getPosition();
 
-    std::vector<Person> allOpponents(opponents);
-    allOpponents.push_back(*goalKepper);
+    std::vector<Person*> allOpponents(opponents);
+    allOpponents.push_back(goalKepper);
 
     if (!player->isInside(scenario)) end(false); // GAME OVER!
 
@@ -161,7 +161,7 @@ void Scene::collisionMonitor() {
     }
 
     for (unsigned int i = 0; i < allOpponents.size(); i++) {
-        Object* opponent = &((Object) allOpponents[i]);
+        Object* opponent = ((Object*) allOpponents[i]);
 
         if (//player->collidingWith(opponent) ||
             ball->collidingWith(opponent)) {
@@ -169,9 +169,9 @@ void Scene::collisionMonitor() {
         }
 
         for (unsigned int j = i + 1; j < opponents.size(); j++) {
-            if (opponents[j].collidingWith(opponent)) {
-                opponents[j].move(Object::FRONT);
-                opponents[i].move(Object::BACK);
+            if (opponents[j]->collidingWith(opponent)) {
+                opponents[j]->move(Object::FRONT);
+                opponents[i]->move(Object::BACK);
             }
         }
     }
@@ -193,8 +193,8 @@ void Scene::end(bool success) {
         // char* string = "huehuebr";
         // unsigned int len = (int) strlen(string);
         // for (unsigned int i = 0; i < len; i++) {
-        //     std::cout << string[i] << std::endl;
-        //     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]);
+        //     std::cout << string[i]-><< std::endl;
+        //     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]->;
         // }
 
         // glutPostRedisplay();
