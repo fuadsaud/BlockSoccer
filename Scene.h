@@ -33,6 +33,7 @@ private:
     std::vector<Person*> opponents;
 
     bool finished;
+    bool success;
 
     void drawHUD();
 
@@ -40,6 +41,7 @@ private:
     void ballBehavior();
     void collisionMonitor();
     void end(bool success);
+    void fireEvent(const char* event);
 };
 
 #include "Game.h"

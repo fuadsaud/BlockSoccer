@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene(Game*  g) {
+    success = false;
     finished = false;
     game = g;
     scenario = new Scenario(100);
@@ -70,7 +71,7 @@ void Scene::background() {
 
 void Scene::keyboard(const char key, int x, int y) {
     if (finished) {
-        end(false);
+        fireEvent("end");
         return;
     }
 
@@ -177,32 +178,16 @@ void Scene::collisionMonitor() {
     }
 }
 
-void Scene::end(bool success) {
-    // TODO show results on the window
+void Scene::end(bool s) {
     if (!finished) {
+        success = s;
         finished = true;
-
-        // glClear(GL_DEPTH_BUFFER_BIT);
-        // glMatrixMode(GL_PROJECTION);
-        // glLoadIdentity();
-        // glOrtho(0, glutGet(GLUT_WINDOW_WIDTH),
-        //         0, glutGet(GLUT_WINDOW_WIDTH),
-        //         0, 1);
-
-        // glRasterPos2f(300, 300);
-        // char* string = "huehuebr";
-        // unsigned int len = (int) strlen(string);
-        // for (unsigned int i = 0; i < len; i++) {
-        //     std::cout << string[i]-><< std::endl;
-        //     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]->;
-        // }
-
-        // glutPostRedisplay();
-
+        // TODO show results on the window
         std::cout << (success ? "GOAL!!!" : "BOOM!!! HAHA") << std::endl;
-
-        sleep(3);
+        std::cout << "PRESS ANY KEY TO CONTINUE" << std::endl;
     }
+}
 
-    game->endRound(success);
+void Scene::fireEvent(const char* event) {
+    if (strcmp(event, "end") == 0) game->endRound(success);
 }

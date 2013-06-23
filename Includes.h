@@ -24,5 +24,6 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <strings.h>
 #include <iostream>
 #include <vector>
