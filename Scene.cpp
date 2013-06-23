@@ -117,19 +117,19 @@ void Scene::passiveMotion(int x, int y) {
 }
 
 void Scene::adversaryTeamBehavior() {
-    Point* playerPosition = player->getPosition();
+    Point* ballPosition = ball->getPosition();
 
     srand(time(0));
 
     for (unsigned int i = 0; i < opponents.size(); i++) {
-        opponents[i]->lookAt(playerPosition);
+        opponents[i]->lookAt(ballPosition);
         opponents[i]->move(Person::FRONT);
     }
 
-    goalKepper->lookAt(playerPosition);
+    goalKepper->lookAt(ballPosition);
 
     Point* kp = goalKepper->getPosition();
-    float move = playerPosition->z;
+    float move = ballPosition->z;
 
     if (move > 5) move = 5;
     else if (move < -5) move = -5;
