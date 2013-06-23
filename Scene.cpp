@@ -211,31 +211,34 @@ void Scene::passiveMotion(int x, int y)
 
 void Scene::adversaryTeamBehavior()
 {
-    if (!freeze) {
-        Point * p = player->getPosition();
+        Point * p = ball->getPosition();
 
         srand(time(0));
         for(unsigned int i = 0; i < opponents.size(); i++)
         {
             opponents[i].lookAt(p);
-            opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT*0.9);
+            opponents[i].move(Person::FRONT, PLAYER_MOVEMENT_AMOUNT*0.8);
         }
 
         goalKepper->lookAt(p);
 
         Point * kp = goalKepper->getPosition();
-        float move = p->z;
-
-        if (move > 5)
-        {
-            move = 5;
-        } else if (move < -5)
-        {
-            move = -5;
+        float move = PLAYER_MOVEMENT_AMOUNT*3;
+        if (kp->z+move < p->z) {
+            kp->z += move;
+        } else if (kp->z-move > p->z) {
+            kp->z -= move;
         }
 
-        kp->z = move;
-    }
+
+        if (kp->z > 5)
+        {
+            kp->z = 5;
+        } else if (kp->z < -5)
+        {
+            kp->z = -5;
+        }
+
 }
 
 void Scene::ballBehavior()
@@ -320,17 +323,24 @@ void Scene::showData() {
     }
 }
 
-void Scene::end(bool success) {
+void Scene::stopScene() {
     ball->stop();
     player->stop();
     freeze = true;
-    // TODO show results on the window
+    for(unsigned int i = 0; i < opponents.size(); i++)
+    {
+        opponents[i].stop();
+    }
+}
+
+void Scene::end(bool success) {
+    stopScene();
     if (success) {
         showFinalMessage = true;
         sprintf(finalMessage,"GOOOOL");
     } else {
         showFinalMessage = true;
-        sprintf(finalMessage,"Errou!");
+        sprintf(finalMessage,"Que Pena!");
     }
     finalStatus = success;
 }

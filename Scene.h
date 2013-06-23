@@ -44,6 +44,7 @@ private:
     char finalMessage[255];
     bool showFinalMessage;
     bool finalStatus;
+    void stopScene();
 
     Game * game;
 };
