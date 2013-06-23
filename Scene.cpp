@@ -335,11 +335,10 @@ void Scene::stopScene() {
 
 void Scene::end(bool success) {
     stopScene();
+    showFinalMessage = true;
     if (success) {
-        showFinalMessage = true;
         sprintf(finalMessage,"GOOOOL");
     } else {
-        showFinalMessage = true;
         sprintf(finalMessage,"Que Pena!");
     }
     finalStatus = success;
