@@ -5,12 +5,14 @@ Object::Object()
 {
     Object::position = new Point(0, 0, 0);
     Object::setDirectionAngle(0);
+    canMove = true;
 }
 
 Object::Object(Point * initialPosition)
 {
     Object::position = initialPosition;
     Object::setDirectionAngle(0);
+    canMove = true;
 }
 
 float Object::getDirectionAngle()
@@ -72,32 +74,34 @@ void Object::lookAt(Point * to)
 
 void Object::move(const int direction, float amount)
 {
-    Point p(0, 0, 0);
-    float radAngle = getDirectionAngle() * M_PI / 180;
+    if (canMove) {
+        Point p(0, 0, 0);
+        float radAngle = getDirectionAngle() * M_PI / 180;
 
-    switch (direction)
-    {
-        case Object::FRONT:
-            p.x = cos(radAngle) * amount;
-            p.z = sin(radAngle) * amount;
-            break;
-        case Object::BACK:
-            p.x -= cos(radAngle) * amount;
-            p.z -= sin(radAngle) * amount;
-            break;
-        case Object::LEFT:
-            radAngle += M_PI / 2;
-            p.x -= cos(radAngle) * amount;
-            p.z -= sin(radAngle) * amount;
-            break;
-        case Object::RIGHT:
-            radAngle -= M_PI / 2;
-            p.x -= cos(radAngle) * amount;
-            p.z -= sin(radAngle) * amount;
-            break;
+        switch (direction)
+        {
+            case Object::FRONT:
+                p.x = cos(radAngle) * amount;
+                p.z = sin(radAngle) * amount;
+                break;
+            case Object::BACK:
+                p.x -= cos(radAngle) * amount;
+                p.z -= sin(radAngle) * amount;
+                break;
+            case Object::LEFT:
+                radAngle += M_PI / 2;
+                p.x -= cos(radAngle) * amount;
+                p.z -= sin(radAngle) * amount;
+                break;
+            case Object::RIGHT:
+                radAngle -= M_PI / 2;
+                p.x -= cos(radAngle) * amount;
+                p.z -= sin(radAngle) * amount;
+                break;
+        }
+
+        position = p + position;
     }
-
-    position = p + position;
 }
 
 void Object::rotate(float amount)
@@ -125,4 +129,8 @@ bool Object::collidingWith(Object o)
 float Object::getRadius()
 {
     return radius;
+}
+
+void Object::stop() {
+    canMove = false;
 }

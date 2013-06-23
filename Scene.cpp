@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 
 Scene::Scene(Game *g)
@@ -179,6 +180,12 @@ void Scene::keyboard(const char key, int x, int y)
             ball->detach();
             freeze = true;
             break;
+        case 'c':
+        case 'C':
+            if (freeze) {
+                game->endRound(finalStatus);
+            }
+            break;
         case 'q':
         case 'Q':
             exit(0);
@@ -300,18 +307,42 @@ void Scene::showData() {
     putTextInWindow(s,-0.9,0.9);
     sprintf(s,"Tentativas: %d", game->getRounds());
     putTextInWindow(s,-0.9,0.8);
+    if (showFinalMessage) {
+        glColor3f(0,0,0);
+        putTextInWindow(finalMessage,-0.095,0.098);
+        glColor3f(1,1,0);
+        putTextInWindow(finalMessage,-0.1,0.1);
+        sprintf(s,"Presione C para continuar");
+        glColor3f(0,0,0);
+        putTextInWindow(s,-0.295,-0.102);
+        glColor3f(1,1,0);
+        putTextInWindow(s,-0.3,-0.1);
+    }
 }
 
 void Scene::end(bool success) {
+    ball->stop();
+    player->stop();
+    freeze = true;
     // TODO show results on the window
-    game->endRound(success);
+    if (success) {
+        showFinalMessage = true;
+        sprintf(finalMessage,"GOOOOL");
+    } else {
+        showFinalMessage = true;
+        sprintf(finalMessage,"Errou!");
+    }
+    finalStatus = success;
 }
 
 
 void Scene::putTextInWindow(char*s, float x, float y) {
     glRasterPos2f(x,y);
-    glColor3f(1.0f,1.0f,1.0f);
     for(int i =0; i< strlen(s); i++) {
-        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,s[i]);
+
+        glutBitmapCharacter(
+            //GLUT_BITMAP_TIMES_ROMAN_24,
+            GLUT_BITMAP_HELVETICA_18,
+            s[i]);
     }
 }

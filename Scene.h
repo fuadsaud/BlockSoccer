@@ -41,6 +41,10 @@ private:
     void showData();
     void putTextInWindow(char*s, float x, float y);
 
+    char finalMessage[255];
+    bool showFinalMessage;
+    bool finalStatus;
+
     Game * game;
 };
 

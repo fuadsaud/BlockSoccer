@@ -31,6 +31,7 @@ public:
     bool collidingWith(Object o);
 
     float getShift();
+    void stop();
 
 protected:
     void setDirectionAngle(float angle);
@@ -41,4 +42,6 @@ protected:
     float directionAngle;
 
     float radius;
+
+    bool canMove;
 };
