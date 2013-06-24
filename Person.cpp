@@ -1,17 +1,11 @@
 #include "Person.h"
 
-Person::Person(float m) {
-    position = new Point(0, 0, 0);
-    setDirectionAngle(0);
-    radius = 0.5;
-    movementAmount = m;
-}
-
-Person::Person(Point * initialPosition, float m) {
+Person::Person(Point* initialPosition, Color* c, float m) {
     position = initialPosition;
     setDirectionAngle(0);
     radius = 0.5;
     movementAmount = m;
+    color = c;
 }
 
 void Person::render() {
@@ -53,20 +47,20 @@ void Person::renderLeg() {
 
     glPushMatrix();
         glTranslatef(0, 0.5, 0);
-        glColor3f(0, 0, 1);
+        glColor3f(color->r, color->g, color->b);
         Parallelepiped::draw(0.1, 0.5, 0.1);
     glPopMatrix();
 }
 
 void Person::renderBody() {
     // Hips
-    glColor3f(0, 0, 1);
+    glColor3f(color->r, color->g, color->b);
     Parallelepiped::draw(0.6, 0.3, 0.1);
 
     glPushMatrix();
         // Chest
         glTranslatef(0, 0.3, 0);
-        glColor3f(0, 1, 0);
+        glColor3f(color->r, color->g, color->b);
         Parallelepiped::draw(0.6, 0.7, 0.1);
 
         // Neck
@@ -88,7 +82,7 @@ void Person::renderArm(const int leftOrRight) {
 
     glPushMatrix();
         glTranslatef(x, 0.7, 0);
-        glColor3f(0, 1, 1);
+        glColor3f(color->r, color->g, color->b);
         Parallelepiped::draw(0.03, 0.1, 0.1);
     glPopMatrix();
 }

@@ -2,6 +2,7 @@
 
 #include "Includes.h"
 
+#include "Color.h"
 #include "Scenario.h"
 #include "Ball.h"
 #include "Person.h"

@@ -2,16 +2,19 @@
 
 #include "Includes.h"
 
+#include "Color.h"
 #include "Point.h"
 #include "Object.h"
 #include "Parallelepiped.h"
 
 class Person : public Object {
 public:
-    Person(float m = Object::DEFAULT_MOVEMENT_AMOUNT);
-    Person(Point * initialPosition, float m = Object::DEFAULT_MOVEMENT_AMOUNT);
+    Person(Point* initialPosition, Color* c,
+           float m = Object::DEFAULT_MOVEMENT_AMOUNT);
 
     void render();
+
+    Color* color;
 
 private:
     void renderFoot();

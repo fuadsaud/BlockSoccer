@@ -5,24 +5,32 @@ Scene::Scene(Game*  g) {
     finished = false;
     game = g;
     scenario = new Scenario(100);
-    player = new Person(PLAYER_MOVEMENT_AMOUNT);
+    player = new Person(new Point(0, 0, 0), new Color(1, 1, 0),
+                        PLAYER_MOVEMENT_AMOUNT);
     camera = new Camera(player);
     ball = new Ball(player);
 
+    Color* adversaryTeamColor = new Color(1, 0, 0);
+
     opponents.push_back(
-        new Person(new Point(10, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(10, 0, 0), adversaryTeamColor,
+                   PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        new Person(new Point(10, 0, -10), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(10, 0, -10), adversaryTeamColor,
+                   PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        new Person(new Point(10, 0, 10), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(10, 0, 10), adversaryTeamColor,
+                   PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        new Person(new Point(11, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1)
+        new Person(new Point(11, 0, 0), adversaryTeamColor,
+                   PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
 
-    goalKepper = new Person(new Point(48, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1);
+    goalKepper = new Person(new Point(48, 0, 0), adversaryTeamColor,
+                            PLAYER_MOVEMENT_AMOUNT * 0.1);
 
     player->bindTo(scenario);
     for (unsigned int i = 0; i < opponents.size(); i++) {
