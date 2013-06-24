@@ -32,7 +32,7 @@ public:
     float getRadius();
 
     bool collidingWith(Object * o);
-    bool isInside(Scenario * s);
+    bool isWithin(Scenario * s);
 
     float getShift();
 

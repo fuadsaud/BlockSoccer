@@ -108,14 +108,18 @@ bool Object::collidingWith(Object * other) {
     return false;
 }
 
-bool Object::isInside(Scenario * s) {
+bool Object::isWithin(Scenario * s) {
     // This checks whether the is outside the field.
-    if (position->x < -50 || position->x > 50 ||
-        position->z < -25 || position->z > 25 ) {
-        return false;
+    Point** boundaries = s->getBoundaries();
+
+    if (fmin(boundaries[0]->x, boundaries[1]->x) < position->x &&
+        fmax(boundaries[0]->x, boundaries[1]->x) > position->x &&
+        fmin(boundaries[0]->z, boundaries[1]->z) < position->z &&
+        fmax(boundaries[0]->z, boundaries[1]->z) > position->z) {
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 float Object::getRadius() {

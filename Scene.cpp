@@ -187,10 +187,10 @@ void Scene::collisionMonitor() {
     std::vector<Person*> allOpponents(opponents);
     allOpponents.push_back(goalKepper);
 
-    if (!player->isInside(scenario)) end(false); // GAME OVER!
+    if (!player->isWithin(scenario)) end(false); // GAME OVER!
 
     // This checks whether the ball is outside the field.
-    if (!ball->isInside(scenario)) {
+    if (!ball->isWithin(scenario)) {
         if (ballPosition->x > 50 && // Was it on the goal side of the field?
             ballPosition->z > -5 && // Was it a goal?
             ballPosition->z < 5) {

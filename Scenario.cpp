@@ -115,3 +115,12 @@ void Scenario::renderGoal() {
         gluCylinder(quadObj, 0.1, 0.1, 10, 10, 10);
     glPopMatrix();
 }
+
+Point** Scenario::getBoundaries() {
+    Point** boundaries = (Point**) malloc(sizeof(Point*) * 2);
+
+    boundaries[0] = new Point(-width / 2, 0, -width / 4);
+    boundaries[1] = new Point( width / 2, 0,  width / 4);
+
+    return boundaries;
+}
