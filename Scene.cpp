@@ -5,31 +5,44 @@ Scene::Scene(Game*  g) {
     finished = false;
     game = g;
     scenario = new Scenario(100);
-    player = new Person(new Point(0, 0, 0), new Color(1, 1, 0),
+    player = new Person(new Point(0, 0, 0),
+                        new Color(1, 1, 0),
+                        new Color(1, 0, 1),
                         PLAYER_MOVEMENT_AMOUNT);
     camera = new Camera(player);
     ball = new Ball(player);
 
-    Color* adversaryTeamColor = new Color(1, 0, 0);
+    Color* adversaryTeamShirtColor = new Color(1, 0, 0);
+    Color* adversaryTeamShortsColor = new Color(1, 1, 1);
 
     opponents.push_back(
-        new Person(new Point(10, 0, 0), adversaryTeamColor,
+        new Person(new Point(10, 0, 0),
+                   adversaryTeamShirtColor,
+                   adversaryTeamShortsColor,
                    PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        new Person(new Point(10, 0, -10), adversaryTeamColor,
+        new Person(new Point(10, 0, -10),
+                   adversaryTeamShirtColor,
+                   adversaryTeamShortsColor,
                    PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        new Person(new Point(10, 0, 10), adversaryTeamColor,
+        new Person(new Point(10, 0, 10),
+                   adversaryTeamShirtColor,
+                   adversaryTeamShortsColor,
                    PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
     opponents.push_back(
-        new Person(new Point(11, 0, 0), adversaryTeamColor,
+        new Person(new Point(11, 0, 0),
+                   adversaryTeamShirtColor,
+                   adversaryTeamShortsColor,
                    PLAYER_MOVEMENT_AMOUNT * 0.1)
     );
 
-    goalKepper = new Person(new Point(48, 0, 0), adversaryTeamColor,
+    goalKepper = new Person(new Point(48, 0, 0),
+                            adversaryTeamShirtColor,
+                            adversaryTeamShortsColor,
                             PLAYER_MOVEMENT_AMOUNT * 0.1);
 
     init(camera);
