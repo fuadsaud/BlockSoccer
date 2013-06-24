@@ -103,7 +103,7 @@ void Scene::drawHUD() {
 void Scene::drawResults() {
     char buffer[100];
 
-    sprintf(buffer, success ? "GOAL!!!" : "BOOM!!! HAHA");
+    sprintf(buffer, success ? "GOAL!!!" : "YOU LOOSE!!!");
 
     glColor3f(0, 0, 0);
     writeBitmap(buffer, -0.095, 0.098);
@@ -190,12 +190,13 @@ void Scene::adversaryTeamBehavior() {
     goalKepper->lookAt(ballPosition);
 
     Point* kp = goalKepper->getPosition();
-    float move = ballPosition->z;
+    float move = 0.8;
 
-    if (move > 5) move = 5;
-    else if (move < -5) move = -5;
+    if (kp->z + move < ballPosition->z) kp->z += move;
+    else if (kp->z - move > ballPosition->z) kp->z -= move;
 
-    kp->z = move;
+    if (kp->z > 5) kp->z = 5;
+    else if (kp->z < -5) kp->z = -5;
 }
 
 void Scene::ballBehavior() {
@@ -208,7 +209,7 @@ void Scene::collisionMonitor() {
     std::vector<Person*> allOpponents(opponents);
     allOpponents.push_back(goalKepper);
 
-    // if (!player->isWithin(scenario)) end(false); // GAME OVER!
+    if (!player->isWithin(scenario)) end(false); // GAME OVER!
 
     // This checks whether the ball is outside the field.
     if (!ball->isWithin(scenario)) {
