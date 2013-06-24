@@ -9,12 +9,14 @@
 
 class Person : public Object {
 public:
-    Person(Point* initialPosition, Color* c,
+    Person(Point* initialPosition,
+           Color* shirts, Color* shorts,
            float m = Object::DEFAULT_MOVEMENT_AMOUNT);
 
     void render();
 
-    Color* color;
+    Color* shirtColor;
+    Color* shortsColor;
 
 private:
     void renderFoot();
