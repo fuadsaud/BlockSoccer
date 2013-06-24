@@ -32,11 +32,6 @@ Scene::Scene(Game*  g) {
     goalKepper = new Person(new Point(48, 0, 0), adversaryTeamColor,
                             PLAYER_MOVEMENT_AMOUNT * 0.1);
 
-    player->bindTo(scenario);
-    for (unsigned int i = 0; i < opponents.size(); i++) {
-        opponents[i]->bindTo(scenario);
-    }
-
     init(camera);
 }
 

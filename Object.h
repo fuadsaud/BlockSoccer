@@ -33,9 +33,6 @@ public:
 
     bool collidingWith(Object * o);
     bool isWithin(Scenario * s);
-
-    void bindTo(Scenario * s);
-
 protected:
     void setDirectionAngle(float angle);
 
@@ -45,6 +42,4 @@ protected:
 
     float directionAngle;
     float radius;
-
-    Scenario * scenario;
 };
