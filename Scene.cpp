@@ -24,6 +24,11 @@ Scene::Scene(Game*  g) {
 
     goalKepper = new Person(new Point(48, 0, 0), PLAYER_MOVEMENT_AMOUNT * 0.1);
 
+    player->bindTo(scenario);
+    for (unsigned int i = 0; i < opponents.size(); i++) {
+        opponents[i]->bindTo(scenario);
+    }
+
     init(camera);
 }
 
@@ -187,7 +192,7 @@ void Scene::collisionMonitor() {
     std::vector<Person*> allOpponents(opponents);
     allOpponents.push_back(goalKepper);
 
-    if (!player->isWithin(scenario)) end(false); // GAME OVER!
+    // if (!player->isWithin(scenario)) end(false); // GAME OVER!
 
     // This checks whether the ball is outside the field.
     if (!ball->isWithin(scenario)) {
@@ -203,10 +208,7 @@ void Scene::collisionMonitor() {
     for (unsigned int i = 0; i < allOpponents.size(); i++) {
         Object* opponent = ((Object*) allOpponents[i]);
 
-        if (//player->collidingWith(opponent) ||
-            ball->collidingWith(opponent)) {
-            end(false);
-        }
+        if (ball->collidingWith(opponent)) end(false);
 
         for (unsigned int j = i + 1; j < opponents.size(); j++) {
             if (opponents[j]->collidingWith(opponent)) {

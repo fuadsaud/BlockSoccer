@@ -16,7 +16,7 @@ public:
     const static float DEFAULT_MOVEMENT_AMOUNT = 1;
 
     Object(float m = DEFAULT_MOVEMENT_AMOUNT);
-    Object(Point * initialPositio, float m = DEFAULT_MOVEMENT_AMOUNT);
+    Object(Point * initialPosition, float m = DEFAULT_MOVEMENT_AMOUNT);
 
     float getDirectionAngle();
     Point * getPosition();
@@ -34,7 +34,7 @@ public:
     bool collidingWith(Object * o);
     bool isWithin(Scenario * s);
 
-    float getShift();
+    void bindTo(Scenario * s);
 
 protected:
     void setDirectionAngle(float angle);
@@ -45,4 +45,6 @@ protected:
 
     float directionAngle;
     float radius;
+
+    Scenario * scenario;
 };

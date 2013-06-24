@@ -4,12 +4,14 @@ Object::Object(float m) {
     position = new Point(0, 0, 0);
     setDirectionAngle(0);
     movementAmount = m;
+    scenario = 0;
 }
 
 Object::Object(Point * initialPosition, float m) {
     position = initialPosition;
     setDirectionAngle(0);
     movementAmount = m;
+    scenario = 0;
 }
 
 float Object::getDirectionAngle() {
@@ -59,8 +61,7 @@ void Object::move(const int direction) {
 
 void Object::move(const int direction, float amount) {
     Point p(0, 0, 0);
-    float radAngle = getDirectionAngle() * M_PI / 180;
-    float x, z;
+    float x, z, boundary, radAngle = getDirectionAngle() * M_PI / 180;
 
     switch (direction) {
         case Object::FRONT:
@@ -86,7 +87,25 @@ void Object::move(const int direction, float amount) {
     p.x += x * amount;
     p.z += z * amount;
 
-    position = p + position;
+    Point * finalPosition = p + position;
+
+    if (scenario != 0) {
+        Point** boundaries = scenario->getBoundaries();
+
+        boundary = fmin(boundaries[0]->x, boundaries[1]->x);
+        if (boundary > finalPosition->x) finalPosition->x = boundary;
+
+        boundary = fmax(boundaries[0]->x, boundaries[1]->x);
+        if (boundary < finalPosition->x) finalPosition->x = boundary;
+
+        boundary = fmin(boundaries[0]->z, boundaries[1]->z);
+        if (boundary > finalPosition->z) finalPosition->z = boundary;
+
+        boundary = fmax(boundaries[0]->z, boundaries[1]->z);
+        if (boundary < finalPosition->z) finalPosition->z = boundary;
+    }
+
+    position = finalPosition;
 }
 
 void Object::rotate(float amount) {
@@ -124,4 +143,8 @@ bool Object::isWithin(Scenario * s) {
 
 float Object::getRadius() {
     return radius;
+}
+
+void Object::bindTo(Scenario * s) {
+    scenario = s;
 }
