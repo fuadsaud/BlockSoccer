@@ -41,8 +41,6 @@ void Scene::display() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    drawHUD();
-
     scenario->render();
     goalKepper->render();
 
@@ -52,12 +50,29 @@ void Scene::display() {
 
     ball->render();
     player->render();
+
+    drawHUD();
+
+    // drawHUD screws the perspective and stuff, so you need to call sync here
+    // as well.
+    camera->syncWithPerson();
 }
 
 void Scene::drawHUD() {
-    std::cout << game->getScore() << " GOALS • "
-              << game->getRounds() << " / " << Game::MAX_ROUNDS
-              << std::endl;
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, glutGet(GLUT_WINDOW_WIDTH),
+            0, glutGet(GLUT_WINDOW_HEIGHT), 0, 0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    char buffer[200];
+
+    sprintf(buffer, "GOALS: %d", game->getScore());
+    writeBitmap(buffer, -0.9, 0.9);
+
+    sprintf(buffer,"ROUNDS: %d / %d", game->getRounds() + 1, Game::MAX_ROUNDS);
+    writeBitmap(buffer, -0.9, 0.8);
 }
 
 void Scene::background() {
@@ -190,4 +205,13 @@ void Scene::end(bool s) {
 
 void Scene::fireEvent(const char* event) {
     if (strcmp(event, "end") == 0) game->endRound(success);
+}
+
+void Scene::writeBitmap(const char* string, float x, float y) {
+    glRasterPos2f(x,y);
+
+    for(unsigned int i = 0; i < strlen(string); i++) {
+        // glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, string[i]);
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]);
+    }
 }

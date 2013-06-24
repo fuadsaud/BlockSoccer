@@ -40,8 +40,11 @@ private:
     void adversaryTeamBehavior();
     void ballBehavior();
     void collisionMonitor();
+
     void end(bool success);
     void fireEvent(const char* event);
+
+    void writeBitmap(const char* string, float x, float y);
 };
 
 #include "Game.h"
