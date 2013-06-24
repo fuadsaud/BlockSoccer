@@ -19,31 +19,31 @@ Scene::Scene(Game*  g) {
         new Person(new Point(10, 0, 0),
                    adversaryTeamShirtColor,
                    adversaryTeamShortsColor,
-                   PLAYER_MOVEMENT_AMOUNT * 0.1)
+                   PLAYER_MOVEMENT_AMOUNT * 0.2)
     );
     opponents.push_back(
         new Person(new Point(10, 0, -10),
                    adversaryTeamShirtColor,
                    adversaryTeamShortsColor,
-                   PLAYER_MOVEMENT_AMOUNT * 0.1)
+                   PLAYER_MOVEMENT_AMOUNT * 0.2)
     );
     opponents.push_back(
         new Person(new Point(10, 0, 10),
                    adversaryTeamShirtColor,
                    adversaryTeamShortsColor,
-                   PLAYER_MOVEMENT_AMOUNT * 0.1)
+                   PLAYER_MOVEMENT_AMOUNT * 0.2)
     );
     opponents.push_back(
         new Person(new Point(11, 0, 0),
                    adversaryTeamShirtColor,
                    adversaryTeamShortsColor,
-                   PLAYER_MOVEMENT_AMOUNT * 0.1)
+                   PLAYER_MOVEMENT_AMOUNT * 0.2)
     );
 
     goalKepper = new Person(new Point(48, 0, 0),
                             adversaryTeamShirtColor,
                             adversaryTeamShortsColor,
-                            PLAYER_MOVEMENT_AMOUNT * 0.1);
+                            PLAYER_MOVEMENT_AMOUNT * 0.2);
 
     init(camera);
 }
