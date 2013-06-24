@@ -35,8 +35,6 @@ private:
     bool finished;
     bool success;
 
-    void drawHUD();
-
     void adversaryTeamBehavior();
     void ballBehavior();
     void collisionMonitor();
@@ -44,6 +42,8 @@ private:
     void end(bool success);
     void fireEvent(const char* event);
 
+    void drawHUD();
+    void drawResults();
     void writeBitmap(const char* string, float x, float y);
 };
 

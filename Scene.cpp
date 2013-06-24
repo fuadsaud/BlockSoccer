@@ -66,17 +66,41 @@ void Scene::drawHUD() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    char buffer[200];
+    char buffer[100];
+
+    glColor3f(1, 0, 1);
 
     sprintf(buffer, "GOALS: %d", game->getScore());
     writeBitmap(buffer, -0.9, 0.9);
 
     sprintf(buffer,"ROUNDS: %d / %d", game->getRounds() + 1, Game::MAX_ROUNDS);
     writeBitmap(buffer, -0.9, 0.8);
+
+    if (finished) drawResults();
+}
+
+void Scene::drawResults() {
+    char buffer[100];
+
+    sprintf(buffer, success ? "GOAL!!!" : "BOOM!!! HAHA");
+
+    glColor3f(0, 0, 0);
+    writeBitmap(buffer, -0.095, 0.098);
+
+    glColor3f(1, 1, 0);
+    writeBitmap(buffer, -0.1, 0.1);
+
+    sprintf(buffer, "Press any key to continue");
+
+    glColor3f(0, 0, 0);
+    writeBitmap(buffer, -0.295, -0.102);
+
+    glColor3f(1, 1, 0);
+    writeBitmap(buffer, -0.3, -0.1);
 }
 
 void Scene::background() {
-    if (finished) return;
+    if (finished) return; // Freeze the scene if it's already finished.
 
     ballBehavior();
     adversaryTeamBehavior();
@@ -197,9 +221,6 @@ void Scene::end(bool s) {
     if (!finished) {
         success = s;
         finished = true;
-        // TODO show results on the window
-        std::cout << (success ? "GOAL!!!" : "BOOM!!! HAHA") << std::endl;
-        std::cout << "PRESS ANY KEY TO CONTINUE" << std::endl;
     }
 }
 
