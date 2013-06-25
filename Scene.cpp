@@ -190,7 +190,7 @@ void Scene::adversaryTeamBehavior() {
     goalKepper->lookAt(ballPosition);
 
     Point* kp = goalKepper->getPosition();
-    float move = 0.8;
+    float move = 0.7;
 
     if (kp->z + move < ballPosition->z) kp->z += move;
     else if (kp->z - move > ballPosition->z) kp->z -= move;
