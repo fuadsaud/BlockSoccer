@@ -65,13 +65,14 @@ void Person::renderBody() {
         Parallelepiped::draw(0.6, 0.7, 0.1);
 
         // Neck
-        glTranslatef(0.25, 0.7, 0);
+        glTranslatef(.18, .7, 0);
         glColor3f(1, 0.72, 0.51);
-        Parallelepiped::draw(0.1, 0.1, 0.1);
+        Parallelepiped::draw(0.2, 0.15, 0.1);
 
         // Head
-        glTranslatef(-0.15, 0.1, -0.1);
-        Parallelepiped::draw(0.4, 0.5, 0.3);
+        glTranslatef(.075, .35, 0);
+        GLUquadricObj *obj = gluNewQuadric();
+        gluSphere(obj, .25, 20, 20);
     glPopMatrix();
 }
 
