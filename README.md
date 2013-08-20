@@ -10,3 +10,7 @@ Soccer game built directly on top of OpenGL and GLUT for learning purposes.
 
 that's it.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/fuadsaud/blocksoccer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
