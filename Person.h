@@ -5,7 +5,7 @@
 #include "Color.h"
 #include "Point.h"
 #include "Object.h"
-#include "Parallelepiped.h"
+#include "Cuboid.h"
 
 class Person : public Object {
 public:

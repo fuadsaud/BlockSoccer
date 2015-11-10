@@ -4,7 +4,7 @@
 
 #include "Scenario.h"
 #include "Point.h"
-#include "Parallelepiped.h"
+#include "Cuboid.h"
 
 class Object {
 public:

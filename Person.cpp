@@ -39,35 +39,35 @@ void Person::render() {
 
 void Person::renderFoot() {
     glColor3f(0, 0, 0);
-    Parallelepiped::draw(0.1, 0.1, 0.3);
+    Cuboid::draw(0.1, 0.1, 0.3);
 }
 
 void Person::renderLeg() {
     glColor3f(1, 0.72, 0.51);
-    Parallelepiped::draw(0.1, 0.5, 0.1);
+    Cuboid::draw(0.1, 0.5, 0.1);
 
     glPushMatrix();
         glTranslatef(0, 0.5, 0);
         glColor3f(shortsColor->r, shortsColor->g, shortsColor->b);
-        Parallelepiped::draw(0.1, 0.5, 0.1);
+        Cuboid::draw(0.1, 0.5, 0.1);
     glPopMatrix();
 }
 
 void Person::renderBody() {
     // Hips
     glColor3f(shortsColor->r, shortsColor->g, shortsColor->b);
-    Parallelepiped::draw(0.6, 0.3, 0.1);
+    Cuboid::draw(0.6, 0.3, 0.1);
 
     glPushMatrix();
         // Chest
         glTranslatef(0, 0.3, 0);
         glColor3f(shirtColor->r, shirtColor->g, shirtColor->b);
-        Parallelepiped::draw(0.6, 0.7, 0.1);
+        Cuboid::draw(0.6, 0.7, 0.1);
 
         // Neck
         glTranslatef(.18, .7, 0);
         glColor3f(1, 0.72, 0.51);
-        Parallelepiped::draw(0.2, 0.15, 0.1);
+        Cuboid::draw(0.2, 0.15, 0.1);
 
         // Head
         glTranslatef(.075, .35, 0);
@@ -80,11 +80,11 @@ void Person::renderArm(const int leftOrRight) {
     float x = (leftOrRight == Object::LEFT) ? 0.1 : -0.03;
 
     glColor3f(1, 0.72, 0.51);
-    Parallelepiped::draw(0.1, 0.8, 0.1);
+    Cuboid::draw(0.1, 0.8, 0.1);
 
     glPushMatrix();
         glTranslatef(x, 0.7, 0);
         glColor3f(shirtColor->r, shirtColor->g, shirtColor->b);
-        Parallelepiped::draw(0.03, 0.1, 0.1);
+        Cuboid::draw(0.03, 0.1, 0.1);
     glPopMatrix();
 }

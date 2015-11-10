@@ -1,6 +1,6 @@
-#include "Parallelepiped.h"
+#include "Cuboid.h"
 
-void Parallelepiped::draw(float width, float height, float depth) {
+void Cuboid::draw(float width, float height, float depth) {
     glBegin(GL_QUADS);
     glVertex3f(0, 0, 0);
     glVertex3f(width, 0, 0);
